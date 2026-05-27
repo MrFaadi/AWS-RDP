@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Music Portfolio — Artxonic | Syed Shah Fahad</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#060406;--deep:#0c080c;--surface:#120d12;--surface2:#1a121a;
+  --maroon:#6b0f1a;--red:#c0392b;
+  --gold:#c9a84c;--gold-l:#f0d080;
+  --white:#f5f0eb;--grey:#6a6068;--grey2:#3a3038;
+  --bg:rgba(139,26,26,.25);--border-m:rgba(139,26,26,.3);
+  --border-g:rgba(201,168,76,.2);--border-s:rgba(255,255,255,.06);
+  --serif:'Montserrat',sans-serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+a{text-decoration:none;color:inherit;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes waveBar{0%,100%{height:6px;}50%{height:22px;}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(6,4,6,.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border-s);}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:600;letter-spacing:.08em;color:var(--gold);}
+.nav-logo span{color:rgba(245,240,235,.3);font-weight:300;}
+.nav-cats{display:flex;gap:6px;}
+.cat-btn{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border-s);background:transparent;color:var(--grey);cursor:pointer;font-family:var(--sans);transition:all .3s;}
+.cat-btn.active,.cat-btn:hover{border-color:var(--border-g);color:var(--gold);background:rgba(201,168,76,.05);}
+.nav-back{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border-g);color:var(--gold);transition:all .3s;font-family:var(--sans);}
+.nav-back:hover{background:var(--gold);color:var(--black);}
+@media(max-width:768px){.nav-cats{display:none;}}
+
+.hero{padding:100px 5vw 60px;background:var(--black);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 60%,rgba(107,15,26,.4) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(201,168,76,.06) 0%,transparent 60%);pointer-events:none;}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;opacity:0;animation:fadeUp .7s .1s forwards;}
+.eyebrow-line{width:28px;height:1px;background:var(--gold);}
+.hero-eyebrow span{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);}
+.hero-title{font-family:var(--serif);font-size:clamp(42px,5.5vw,72px);font-weight:700;line-height:1.05;opacity:0;animation:fadeUp .7s .2s forwards;}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--gold-l),var(--gold),#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-desc{font-size:.85rem;color:var(--grey);line-height:1.8;max-width:500px;margin-top:16px;opacity:0;animation:fadeUp .7s .32s forwards;}
+.hero-stats{display:flex;gap:32px;margin-top:32px;opacity:0;animation:fadeUp .7s .44s forwards;flex-wrap:wrap;}
+.h-stat{border-left:2px solid var(--gold);padding-left:16px;}
+.h-stat-num{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--gold);line-height:1;}
+.h-stat-label{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-top:4px;}
+
+/* FILTERS */
+.filters{padding:28px 5vw 0;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border-s);}
+.filter-btn{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:8px 18px;border:1px solid var(--border-s);background:transparent;color:var(--grey);cursor:pointer;font-family:var(--sans);transition:all .3s;margin-bottom:-1px;}
+.filter-btn.active{border-color:var(--border-g);border-bottom-color:var(--deep);color:var(--gold);background:var(--deep);}
+.filter-btn:hover{color:var(--gold);}
+
+/* TRACKS */
+.tracks-section{background:var(--deep);padding:0 5vw 80px;}
+.tracks-list{padding-top:40px;display:flex;flex-direction:column;gap:2px;}
+.track-row{display:grid;grid-template-columns:40px 60px 1fr auto auto;align-items:center;gap:16px;padding:20px 24px;background:var(--surface);border:1px solid var(--border-s);transition:all .3s;cursor:pointer;}
+.track-row:hover,.track-row.playing{background:var(--surface2);border-color:var(--border-g);}
+.tr-num{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--grey2);}
+.track-row.playing .tr-num,.track-row:hover .tr-num{color:var(--gold);}
+.tr-art{width:52px;height:52px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.art-lofi{background:linear-gradient(135deg,#1a0810,#0a0418);}
+.art-trap{background:linear-gradient(135deg,#080510,#12081e);}
+.art-phonk{background:linear-gradient(135deg,#0c0808,#1a1008);}
+.art-cin{background:linear-gradient(135deg,#0a0810,#14101e);}
+.tr-info{}
+.tr-title{font-size:.9rem;font-weight:500;color:var(--white);margin-bottom:3px;}
+.track-row.playing .tr-title{color:var(--gold);}
+.tr-meta{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
+.tr-badge{font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1px solid;white-space:nowrap;align-self:flex-start;}
+.badge-lofi{border-color:rgba(100,200,160,.3);color:rgba(100,200,160,.8);}
+.badge-trap{border-color:rgba(192,57,43,.4);color:rgba(220,80,60,.8);}
+.badge-phonk{border-color:rgba(201,168,76,.3);color:var(--gold);}
+.badge-cin{border-color:rgba(100,150,200,.3);color:rgba(120,170,220,.8);}
+.badge-free{border-color:rgba(100,200,120,.3);color:rgba(100,200,120,.8);}
+.tr-right{display:flex;align-items:center;gap:12px;justify-content:flex-end;}
+.tr-dur{font-size:.65rem;color:var(--grey2);min-width:36px;text-align:right;}
+.wave-mini{display:flex;align-items:center;gap:2px;height:20px;opacity:0;}
+.track-row.playing .wave-mini{opacity:1;}
+.wave-mini .b{width:2px;background:var(--gold);border-radius:1px;animation:waveBar .8s ease infinite;}
+.b:nth-child(2){animation-delay:.1s;}.b:nth-child(3){animation-delay:.2s;}.b:nth-child(4){animation-delay:.3s;}
+.play-mini{width:32px;height:32px;border-radius:50%;border:1px solid var(--border-m);background:transparent;color:var(--white);cursor:pointer;font-size:11px;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.play-mini:hover,.track-row.playing .play-mini{background:var(--gold);border-color:var(--gold);color:var(--black);}
+@media(max-width:600px){.track-row{grid-template-columns:30px 1fr auto;}.tr-art,.tr-badge,.tr-dur{display:none;}}
+
+/* ALBUMS */
+.albums-section{background:var(--black);padding:80px 5vw;}
+.s-label{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.s-label-line{width:24px;height:1px;background:var(--gold);}
+.s-label span{font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);}
+.s-title{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.1;margin-bottom:48px;}
+.s-title em{font-style:normal;color:var(--gold);}
+.albums-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:768px){.albums-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.albums-grid{grid-template-columns:1fr;}}
+.album-card{background:var(--surface);border:1px solid var(--border-m);overflow:hidden;transition:border-color .3s;}
+.album-card:hover{border-color:var(--gold);}
+.album-cover{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.ac-bg1{background:linear-gradient(135deg,#1a0810,#0a0418,#160a08);}
+.ac-bg2{background:linear-gradient(135deg,#0c0508,#1a0308);}
+.ac-bg3{background:linear-gradient(135deg,#080510,#0a0818);}
+.album-icon{font-size:3rem;opacity:.2;position:relative;z-index:1;}
+.album-label{position:absolute;top:12px;left:12px;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border:1px solid var(--border-g);background:rgba(0,0,0,.5);color:var(--gold);}
+.album-body{padding:18px 20px;}
+.album-title{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--white);margin-bottom:4px;}
+.album-meta{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:14px;}
+.album-platforms{display:flex;gap:8px;flex-wrap:wrap;}
+.ap-pill{font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border:1px solid var(--border-s);color:var(--grey);}
+
+/* PLATFORMS */
+.platforms-section{background:var(--deep);padding:80px 5vw;}
+.plat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:768px){.plat-grid{grid-template-columns:repeat(2,1fr);}}
+.plat-card{background:var(--surface);border:1px solid var(--border-s);padding:22px 16px;text-align:center;transition:all .3s;cursor:pointer;}
+.plat-card:hover{border-color:var(--border-g);background:var(--surface2);}
+.plat-icon{font-size:1.8rem;margin-bottom:8px;display:block;}
+.plat-name{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:6px;}
+.plat-status{font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(100,200,120,.8);background:rgba(100,200,100,.06);border:1px solid rgba(100,200,100,.2);padding:2px 8px;display:inline-block;}
+
+footer{background:var(--deep);border-top:1px solid var(--border-s);padding:28px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.f-logo{font-family:var(--serif);font-size:.95rem;color:var(--gold);}
+.f-links{display:flex;gap:18px;}
+.f-links a{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);transition:color .3s;}
+.f-links a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Artxonic <span>· Music Portfolio</span></div>
+  <div class="nav-cats">
+    <button class="cat-btn active" onclick="filterTracks('all')">All</button>
+    <button class="cat-btn" onclick="filterTracks('lofi')">Lofi</button>
+    <button class="cat-btn" onclick="filterTracks('trap')">Trap</button>
+    <button class="cat-btn" onclick="filterTracks('phonk')">Phonk</button>
+    <button class="cat-btn" onclick="filterTracks('cin')">Cinematic</button>
+  </div>
+  <a href="artxonic.html" class="nav-back">← Artxonic</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow"><div class="eyebrow-line"></div><span>Artxonic · Music Portfolio</span></div>
+  <h1 class="hero-title">Music Production<br><em>Portfolio</em></h1>
+  <p class="hero-desc">AI + Human Touch music spanning Urdu/Pashto Indie Lofi Pop, Dark Trap, Phonk, and Cinematic B-Roll Audio. Streaming globally, selling as beats, licensed for stock and sync.</p>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-num">6+</div><div class="h-stat-label">Original Tracks</div></div>
+    <div class="h-stat"><div class="h-stat-num">8+</div><div class="h-stat-label">Streaming Platforms</div></div>
+    <div class="h-stat"><div class="h-stat-num">3</div><div class="h-stat-label">Stock Platforms</div></div>
+    <div class="h-stat"><div class="h-stat-num">4</div><div class="h-stat-label">Genres</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterTracks('all',this)">All Tracks</button>
+  <button class="filter-btn" onclick="filterTracks('lofi',this)">Urdu/Pashto Lofi</button>
+  <button class="filter-btn" onclick="filterTracks('trap',this)">Dark Trap</button>
+  <button class="filter-btn" onclick="filterTracks('phonk',this)">Phonk</button>
+  <button class="filter-btn" onclick="filterTracks('cin',this)">Cinematic</button>
+  <button class="filter-btn" onclick="filterTracks('free',this)">Free Stream</button>
+</div>
+
+<div class="tracks-section">
+  <div class="tracks-list" id="tracksList">
+    <div class="track-row reveal" data-genre="lofi free" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">01</span>
+      <div class="tr-art art-lofi">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">Dil Gaya Tumne Leya</div>
+        <div class="tr-meta">Artxonic · Urdu Indie Lofi Pop · BPM 72 · C Minor</div>
+        <!-- Paste SoundCloud embed: <iframe src="..."> -->
+      </div>
+      <span class="tr-badge badge-lofi">Urdu Lofi</span>
+      <div class="tr-right">
+        <span class="tr-badge badge-free">Free</span>
+        <span class="tr-dur">3:24</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+
+    <div class="track-row reveal" data-genre="trap free" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">02</span>
+      <div class="tr-art art-trap">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">Raakh Ka Sawaal</div>
+        <div class="tr-meta">Artxonic · Dark Trap · BPM 140 · D Minor</div>
+      </div>
+      <span class="tr-badge badge-trap">Dark Trap</span>
+      <div class="tr-right">
+        <span class="tr-badge badge-free">Free</span>
+        <span class="tr-dur">2:58</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+
+    <div class="track-row reveal" data-genre="lofi free" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">03</span>
+      <div class="tr-art art-lofi">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">Stargo Kram Saqi</div>
+        <div class="tr-meta">Artxonic · Pashto Lofi · BPM 68 · F Minor</div>
+      </div>
+      <span class="tr-badge badge-lofi">Pashto Lofi</span>
+      <div class="tr-right">
+        <span class="tr-badge badge-free">Free</span>
+        <span class="tr-dur">3:42</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+
+    <div class="track-row reveal" data-genre="phonk" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">04</span>
+      <div class="tr-art art-phonk">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">Cinematic Phonk Vol.1</div>
+        <div class="tr-meta">Artxonic · Phonk · BPM 130 · A Minor</div>
+      </div>
+      <span class="tr-badge badge-phonk">Phonk</span>
+      <div class="tr-right">
+        <span class="tr-dur">2:45</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+
+    <div class="track-row reveal" data-genre="trap" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">05</span>
+      <div class="tr-art art-trap">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">Shadow Frequency</div>
+        <div class="tr-meta">Artxonic · Dark Trap · BPM 145 · E Minor</div>
+      </div>
+      <span class="tr-badge badge-trap">Dark Trap</span>
+      <div class="tr-right">
+        <span class="tr-dur">3:05</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+
+    <div class="track-row reveal" data-genre="cin" onclick="toggleTrackPlay(this)">
+      <span class="tr-num">06</span>
+      <div class="tr-art art-cin">🎵</div>
+      <div class="tr-info">
+        <div class="tr-title">B-Roll Ambient Pack</div>
+        <div class="tr-meta">Artxonic · Cinematic · BPM 60 · G Major</div>
+      </div>
+      <span class="tr-badge badge-cin">Cinematic</span>
+      <div class="tr-right">
+        <span class="tr-dur">4:10</span>
+        <div class="wave-mini"><div class="b" style="height:8px"></div><div class="b" style="height:14px"></div><div class="b" style="height:10px"></div><div class="b" style="height:18px"></div></div>
+        <button class="play-mini">▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALBUMS -->
+<div class="albums-section">
+  <div class="s-label reveal"><div class="s-label-line"></div><span>Releases</span></div>
+  <h2 class="s-title reveal">Albums &amp; <em>EPs</em></h2>
+  <div class="albums-grid reveal">
+    <div class="album-card">
+      <div class="album-cover ac-bg1"><span class="album-icon">🎵</span><span class="album-label">EP</span></div>
+      <div class="album-body">
+        <div class="album-title">Artxonic Vol. I</div>
+        <div class="album-meta">2024 · Urdu/Pashto Indie Lofi · 3 Tracks</div>
+        <div class="album-platforms"><span class="ap-pill">Spotify</span><span class="ap-pill">Apple Music</span><span class="ap-pill">SoundCloud</span></div>
+      </div>
+    </div>
+    <div class="album-card">
+      <div class="album-cover ac-bg2"><span class="album-icon">🎵</span><span class="album-label">Singles</span></div>
+      <div class="album-body">
+        <div class="album-title">Dark Trap Collection</div>
+        <div class="album-meta">2024 · Dark Trap · 2 Tracks</div>
+        <div class="album-platforms"><span class="ap-pill">BeatStars</span><span class="ap-pill">Airbit</span><span class="ap-pill">Spotify</span></div>
+      </div>
+    </div>
+    <div class="album-card">
+      <div class="album-cover ac-bg3"><span class="album-icon">🎵</span><span class="album-label">Stock</span></div>
+      <div class="album-body">
+        <div class="album-title">Cinematic B-Roll Pack</div>
+        <div class="album-meta">2024 · Cinematic/Ambient · 1 Track</div>
+        <div class="album-platforms"><span class="ap-pill">Pond5</span><span class="ap-pill">AudioJungle</span><span class="ap-pill">Adobe Stock</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STREAMING PLATFORMS -->
+<div class="platforms-section">
+  <div class="s-label reveal"><div class="s-label-line"></div><span>Stream On</span></div>
+  <h2 class="s-title reveal">Available <em>Everywhere</em></h2>
+  <div class="plat-grid reveal">
+    <div class="plat-card"><span class="plat-icon">🎧</span><div class="plat-name">Spotify</div><div class="plat-status">Live</div></div>
+    <div class="plat-card"><span class="plat-icon">🍎</span><div class="plat-name">Apple Music</div><div class="plat-status">Live</div></div>
+    <div class="plat-card"><span class="plat-icon">☁️</span><div class="plat-name">SoundCloud</div><div class="plat-status">Live</div></div>
+    <div class="plat-card"><span class="plat-icon">🎵</span><div class="plat-name">BeatStars</div><div class="plat-status">Beats For Sale</div></div>
+    <div class="plat-card"><span class="plat-icon">📻</span><div class="plat-name">Amazon Music</div><div class="plat-status">Live</div></div>
+    <div class="plat-card"><span class="plat-icon">🌊</span><div class="plat-name">Tidal</div><div class="plat-status">Live</div></div>
+    <div class="plat-card"><span class="plat-icon">🌐</span><div class="plat-name">Pond5</div><div class="plat-status">Stock Music</div></div>
+    <div class="plat-card"><span class="plat-icon">🅐</span><div class="plat-name">Adobe Stock</div><div class="plat-status">Stock Audio</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">Artxonic · Music Portfolio</div>
+  <div class="f-links">
+    <a href="index.html">Home</a>
+    <a href="artxonic.html">Artxonic</a>
+    <a href="portfolio-design.html">Design Portfolio</a>
+    <a href="blog.html">Blog</a>
+  </div>
+</footer>
+
+<script>
+function filterTracks(genre,btn){
+  document.querySelectorAll('.filter-btn,.cat-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.track-row').forEach(row=>{
+    const g=row.dataset.genre||'';
+    row.style.display=(genre==='all'||g.includes(genre))?'grid':'none';
+  });
+}
+function toggleTrackPlay(row){
+  const wasPlaying=row.classList.contains('playing');
+  document.querySelectorAll('.track-row').forEach(r=>{r.classList.remove('playing');r.querySelector('.play-mini').textContent='▶';});
+  if(!wasPlaying){row.classList.add('playing');row.querySelector('.play-mini').textContent='⏸';}
+}
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

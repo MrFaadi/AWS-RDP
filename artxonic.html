@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Artxonic — AI + Human Touch Music Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#060406;--deep:#0c080c;--surface:#120d12;--surface2:#1a121a;--surface3:#221a22;
+  --maroon:#6b0f1a;--maroon2:#8b1a1a;--red:#c0392b;--red2:#e74c3c;
+  --gold:#c9a84c;--gold-l:#f0d080;--gold-d:rgba(201,168,76,.15);
+  --white:#f5f0eb;--grey:#6a6068;--grey2:#3a3038;
+  --bg:rgba(139,26,26,.25);--bg-g:rgba(201,168,76,.18);
+  --border-m:rgba(139,26,26,.3);--border-g:rgba(201,168,76,.2);--border-s:rgba(255,255,255,.06);
+  --glow-r:rgba(192,57,43,.4);--glow-g:rgba(201,168,76,.3);
+  --serif:'Montserrat',sans-serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+a{text-decoration:none;color:inherit;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{to{transform:translateX(-50%);}}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 var(--glow-r);}70%{box-shadow:0 0 0 16px transparent;}}
+@keyframes waveBar{0%,100%{height:6px;}50%{height:22px;}}
+@keyframes shimmer{0%,100%{opacity:.6;}50%{opacity:1;}}
+@keyframes scanline{0%{top:-5%;}100%{top:105%;}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(6,4,6,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border-s);}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:600;letter-spacing:.08em;color:var(--gold);}
+.nav-logo span{color:rgba(245,240,235,.3);font-weight:300;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-back{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:8px 18px;border:1px solid var(--border-g);color:var(--gold);transition:all .3s;font-family:var(--sans);}
+.nav-back:hover{background:var(--gold);color:var(--black);}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:flex-end;padding-top:60px;position:relative;overflow:hidden;}
+.hero-video-wrap{position:absolute;inset:0;overflow:hidden;}
+.hero-video-wrap video{width:100%;height:100%;object-fit:cover;opacity:.18;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,15,26,.6) 0%,rgba(6,4,6,.85) 50%,rgba(8,4,8,.9) 100%);}
+.hero-scanline{position:absolute;top:-5%;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.06),transparent);animation:scanline 6s linear infinite;pointer-events:none;}
+.hero-content{position:relative;z-index:2;padding:80px 5vw;max-width:800px;}
+.h-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border:1px solid var(--border-g);background:rgba(201,168,76,.06);margin-bottom:28px;opacity:0;animation:fadeUp .8s .1s forwards;}
+.h-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:shimmer 2s ease infinite;}
+.h-badge span{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);}
+.h-title{font-family:var(--serif);font-size:clamp(56px,8vw,110px);font-weight:700;line-height:.92;margin-bottom:16px;opacity:0;animation:fadeUp .8s .2s forwards;}
+.h-title em{font-style:normal;background:linear-gradient(135deg,var(--gold-l),var(--gold),#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.h-subtitle{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--grey);margin-bottom:24px;opacity:0;animation:fadeUp .8s .3s forwards;}
+.h-desc{font-size:.9rem;color:var(--grey);line-height:1.8;max-width:480px;margin-bottom:36px;opacity:0;animation:fadeUp .8s .4s forwards;}
+.h-genres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;opacity:0;animation:fadeUp .8s .5s forwards;}
+.genre-pill{padding:6px 16px;border:1px solid var(--border-m);background:rgba(107,15,26,.15);color:var(--grey);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;transition:all .3s;}
+.genre-pill:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-d);}
+.h-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .62s forwards;}
+.btn-gold{display:inline-block;padding:13px 32px;background:var(--gold);color:var(--black);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);font-weight:700;transition:all .3s;border:none;cursor:pointer;}
+.btn-gold:hover{background:var(--gold-l);}
+.btn-ghost-r{display:inline-block;padding:13px 32px;border:1px solid var(--border-m);color:var(--grey);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);font-weight:500;transition:all .3s;}
+.btn-ghost-r:hover{border-color:var(--red);color:var(--red2);}
+.hero-wave{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(0deg,var(--black) 0%,transparent 100%);z-index:1;}
+
+/* MARQUEE */
+.marquee-wrap{border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s);background:var(--deep);padding:14px 0;overflow:hidden;}
+.marquee-track{display:flex;width:max-content;animation:marquee 24s linear infinite;}
+.m-item{display:flex;align-items:center;gap:20px;padding:0 28px;white-space:nowrap;}
+.m-item span{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--grey);}
+.m-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* SECTION */
+.sec{padding:100px 5vw;position:relative;}
+.sec-alt{background:var(--deep);}
+.s-label{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.s-label-line{width:28px;height:1px;background:var(--gold);}
+.s-label span{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);}
+.s-title{font-family:var(--serif);font-size:clamp(30px,3.5vw,48px);font-weight:700;line-height:1.1;margin-bottom:56px;}
+.s-title em{font-style:normal;color:var(--gold);}
+
+/* ALBUM PLAYER */
+.player-section{background:var(--surface);}
+.album-player{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-g);overflow:hidden;}
+@media(max-width:768px){.album-player{grid-template-columns:1fr;}}
+.album-art-wrap{position:relative;min-height:320px;background:var(--surface2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.album-art-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0810,#0a0418,#160a08);transition:background .6s;}
+.album-art-visual{position:relative;z-index:1;text-align:center;}
+.album-disc{width:160px;height:160px;border-radius:50%;border:1px solid var(--border-g);background:radial-gradient(circle,#1a1218 30%,#0a060a 60%,#1a1218 100%);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:transform 1s linear;position:relative;}
+.album-disc.spinning{animation:spinDisc 4s linear infinite;}
+@keyframes spinDisc{to{transform:rotate(360deg);}}
+.disc-center{width:28px;height:28px;border-radius:50%;background:var(--gold);opacity:.8;}
+.album-name-display{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--white);margin-bottom:6px;}
+.album-sub-display{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);}
+.album-wave{display:flex;align-items:center;justify-content:center;gap:3px;height:24px;margin-top:14px;opacity:0;transition:opacity .4s;}
+.album-wave.active{opacity:1;}
+.album-wave .bar{width:3px;border-radius:2px;background:var(--gold);}
+.bar:nth-child(1){animation:waveBar .8s .0s ease infinite;}
+.bar:nth-child(2){animation:waveBar .8s .1s ease infinite;}
+.bar:nth-child(3){animation:waveBar .8s .2s ease infinite;}
+.bar:nth-child(4){animation:waveBar .8s .3s ease infinite;}
+.bar:nth-child(5){animation:waveBar .8s .15s ease infinite;}
+.bar:nth-child(6){animation:waveBar .8s .05s ease infinite;}
+.bar:nth-child(7){animation:waveBar .8s .25s ease infinite;}
+
+.player-right{display:flex;flex-direction:column;background:var(--surface);}
+.player-top{padding:24px 28px;border-bottom:1px solid var(--border-s);}
+.player-now-label{font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.player-track-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);margin-bottom:4px;line-height:1.2;}
+.player-track-meta{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
+.player-controls{display:flex;align-items:center;gap:12px;padding:16px 28px;border-bottom:1px solid var(--border-s);}
+.ctrl-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border-s);background:transparent;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .3s;}
+.ctrl-btn:hover{border-color:var(--border-g);color:var(--gold);}
+.ctrl-play{width:48px;height:48px;border-radius:50%;border:none;background:var(--gold);color:var(--black);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s;}
+.ctrl-play:hover{background:var(--gold-l);transform:scale(1.05);}
+.progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px;}
+.progress-bar-bg{height:3px;background:var(--border-s);border-radius:2px;cursor:pointer;position:relative;}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:2px;width:0%;transition:width .3s;}
+.progress-time{font-size:.5rem;letter-spacing:.12em;color:var(--grey);display:flex;justify-content:space-between;}
+.free-badge-player{font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(100,200,100,.3);color:rgba(100,200,160,.8);background:rgba(100,200,100,.05);}
+.play-counter{font-size:.55rem;color:var(--grey);padding:8px 28px;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:8px;}
+.play-counter span{color:var(--gold);font-weight:600;}
+
+.tracklist{flex:1;overflow-y:auto;max-height:280px;}
+.tracklist::-webkit-scrollbar{width:3px;}
+.tracklist::-webkit-scrollbar-track{background:var(--surface);}
+.tracklist::-webkit-scrollbar-thumb{background:var(--border-g);}
+.tl-item{display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid var(--border-s);cursor:pointer;transition:background .2s;}
+.tl-item:hover{background:var(--surface2);}
+.tl-item.active{background:rgba(201,168,76,.06);}
+.tl-num{font-size:.7rem;color:var(--grey2);min-width:20px;font-family:var(--sans);}
+.tl-item.active .tl-num{color:var(--gold);}
+.tl-info{flex:1;}
+.tl-name{font-size:.82rem;font-weight:500;color:var(--white);margin-bottom:2px;}
+.tl-item.active .tl-name{color:var(--gold);}
+.tl-meta{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);}
+.tl-dur{font-size:.58rem;color:var(--grey2);}
+
+/* YOUTUBE SECTION */
+.yt-section{background:var(--deep);}
+.yt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:900px){.yt-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.yt-grid{grid-template-columns:1fr;}}
+.yt-card{background:var(--surface);border:1px solid var(--border-s);overflow:hidden;transition:border-color .3s;}
+.yt-card:hover{border-color:var(--border-g);}
+.yt-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--surface2);}
+.yt-thumb iframe{width:100%;height:100%;border:none;display:block;}
+.yt-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;}
+.yt-ph-icon{width:50px;height:50px;border-radius:50%;background:rgba(255,0,0,.8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;padding-left:4px;}
+.yt-ph-txt{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);}
+.yt-info{padding:14px 18px;}
+.yt-cat{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.yt-title{font-size:.8rem;font-weight:500;color:var(--white);line-height:1.4;}
+.btn-yt{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#ff0000;color:#fff;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-family:var(--sans);font-weight:700;border:none;cursor:pointer;transition:background .3s;}
+.btn-yt:hover{background:#cc0000;}
+
+/* BEATS STORE */
+.beats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:900px){.beats-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.beats-grid{grid-template-columns:1fr;}}
+.beat-card{background:var(--surface);border:1px solid var(--border-m);overflow:hidden;position:relative;transition:border-color .3s;}
+.beat-card:hover{border-color:var(--gold);}
+.beat-card-thumb{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.beat-bg-1{background:linear-gradient(135deg,#0c0508,#1a0308,#0c0508);}
+.beat-bg-2{background:linear-gradient(135deg,#080510,#12081e,#080510);}
+.beat-bg-3{background:linear-gradient(135deg,#050c08,#081a10,#050c08);}
+.beat-bg-4{background:linear-gradient(135deg,#0c0808,#1a1008,#0c0808);}
+.beat-bg-5{background:linear-gradient(135deg,#0a0810,#14101e,#0a0810);}
+.beat-bg-6{background:linear-gradient(135deg,#0c0510,#180a1e,#0c0510);}
+.beat-icon{font-size:2.5rem;opacity:.25;}
+.beat-genre-badge{position:absolute;top:12px;left:12px;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border:1px solid var(--border-g);background:rgba(0,0,0,.5);color:var(--gold);}
+.beat-card-body{padding:20px;}
+.beat-title{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--white);margin-bottom:6px;}
+.beat-meta{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:14px;}
+.beat-footer{display:flex;align-items:center;justify-content:space-between;}
+.beat-price{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--gold);}
+.beat-buy{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 16px;background:var(--gold);color:var(--black);font-family:var(--sans);font-weight:700;border:none;cursor:pointer;transition:background .3s;}
+.beat-buy:hover{background:var(--gold-l);}
+.beats-cta-banner{margin-top:40px;background:linear-gradient(135deg,var(--maroon) 0%,var(--black) 60%);border:1px solid var(--border-m);padding:48px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden;}
+.beats-cta-banner::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%);}
+.bcb-text h3{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--white);margin-bottom:8px;}
+.bcb-text h3 em{font-style:normal;color:var(--gold);}
+.bcb-text p{font-size:.8rem;color:var(--grey);line-height:1.7;max-width:400px;}
+.bcb-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 36px;background:var(--gold);color:var(--black);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);font-weight:700;transition:all .3s;white-space:nowrap;box-shadow:0 0 30px rgba(201,168,76,.25);}
+.bcb-btn:hover{background:var(--gold-l);box-shadow:0 0 50px rgba(201,168,76,.4);}
+
+/* STREAMING PLATFORMS */
+.stream-platforms{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:768px){.stream-platforms{grid-template-columns:repeat(2,1fr);}}
+.sp-card{background:var(--surface);border:1px solid var(--border-s);padding:24px 20px;text-align:center;transition:all .3s;}
+.sp-card:hover{border-color:var(--border-g);background:var(--surface2);}
+.sp-icon{font-size:2rem;margin-bottom:10px;display:block;}
+.sp-name{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:6px;}
+.sp-status{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(100,200,120,.8);background:rgba(100,200,100,.06);border:1px solid rgba(100,200,100,.2);padding:3px 10px;display:inline-block;}
+
+/* STOCK MUSIC */
+.stock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:768px){.stock-grid{grid-template-columns:1fr;}}
+.stock-card{background:var(--surface);border:1px solid var(--border-g);padding:28px 24px;transition:border-color .3s;}
+.stock-card:hover{border-color:var(--gold);}
+.stock-platform{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.stock-platform::before{content:'';width:20px;height:1px;background:var(--gold);}
+.stock-title{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--white);margin-bottom:8px;}
+.stock-desc{font-size:.78rem;color:var(--grey);line-height:1.7;margin-bottom:18px;}
+.stock-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.stock-tag{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1px solid var(--border-g);color:var(--grey);}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border-s);padding:36px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.f-logo{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--gold);}
+.f-copy{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
+.f-links{display:flex;gap:18px;}
+.f-links a{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);transition:color .3s;}
+.f-links a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Artxonic <span>· AI Music</span></div>
+  <ul class="nav-links">
+    <li><a href="#freestream">Stream</a></li>
+    <li><a href="#beats">Beats</a></li>
+    <li><a href="#streaming">Platforms</a></li>
+    <li><a href="#youtube">Videos</a></li>
+    <li><a href="#stockmusic">Stock</a></li>
+    <li><a href="portfolio-music.html">Portfolio</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back Home</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Background video from uploaded file -->
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="plenky__3_.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-bg"></div>
+  <div class="hero-scanline"></div>
+
+  <div class="hero-content">
+    <div class="h-badge">
+      <div class="h-badge-dot"></div>
+      <span>AI + Human Touch · Music Production</span>
+    </div>
+    <h1 class="h-title">Art<em>xonic</em></h1>
+    <p class="h-subtitle">Cinematic Sound · AI × Human Emotion</p>
+    <p class="h-desc">Beats forged at the intersection of artificial intelligence and raw human soul. Urdu/Pashto Indie Lofi Pop, Dark Trap, Phonk — streaming globally, selling on major platforms, synced in film and stock markets.</p>
+    <div class="h-genres">
+      <span class="genre-pill">Urdu/Pashto Indie Lofi Pop</span>
+      <span class="genre-pill">Dark Trap</span>
+      <span class="genre-pill">Phonk</span>
+      <span class="genre-pill">Cinematic B-Roll Audio</span>
+      <span class="genre-pill">Sync Licensing</span>
+    </div>
+    <div class="h-btns">
+      <a href="#beats" class="btn-gold">Listen &amp; Buy Beats</a>
+      <a href="#freestream" class="btn-ghost-r">Free Stream →</a>
+    </div>
+  </div>
+  <div class="hero-wave"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="m-item"><span>AI Music Production</span><div class="m-dot"></div><span>Streaming Globally</span><div class="m-dot"></div><span>Beat Store</span><div class="m-dot"></div><span>Stock Sync</span><div class="m-dot"></div><span>Urdu Lofi</span><div class="m-dot"></div><span>Dark Trap</span><div class="m-dot"></div><span>Phonk</span><div class="m-dot"></div><span>Cinematic Audio</span><div class="m-dot"></div><span>BeatStars</span><div class="m-dot"></div><span>Spotify</span><div class="m-dot"></div><span>Apple Music</span><div class="m-dot"></div></div>
+    <div class="m-item"><span>AI Music Production</span><div class="m-dot"></div><span>Streaming Globally</span><div class="m-dot"></div><span>Beat Store</span><div class="m-dot"></div><span>Stock Sync</span><div class="m-dot"></div><span>Urdu Lofi</span><div class="m-dot"></div><span>Dark Trap</span><div class="m-dot"></div><span>Phonk</span><div class="m-dot"></div><span>Cinematic Audio</span><div class="m-dot"></div><span>BeatStars</span><div class="m-dot"></div><span>Spotify</span><div class="m-dot"></div><span>Apple Music</span><div class="m-dot"></div></div>
+  </div>
+</div>
+
+<!-- ALBUM PLAYER / FREE STREAM -->
+<section class="sec player-section" id="freestream">
+  <div class="s-label reveal"><div class="s-label-line"></div><span>Free To Listen · Stream</span></div>
+  <h2 class="s-title reveal">Artxonic <em>Album Player</em></h2>
+
+  <div class="album-player reveal">
+    <!-- LEFT: Album visual -->
+    <div class="album-art-wrap" id="albumArtWrap">
+      <div class="album-art-bg" id="albumBg"></div>
+      <div class="album-art-visual">
+        <div class="album-disc" id="albumDisc">
+          <div class="disc-center"></div>
+        </div>
+        <div class="album-name-display" id="albumNameDisplay">Artxonic — Vol. I</div>
+        <div class="album-sub-display" id="albumSubDisplay">Urdu/Pashto Indie Lofi · 2024</div>
+        <div class="album-wave" id="albumWave">
+          <div class="bar" style="height:8px"></div><div class="bar" style="height:14px"></div><div class="bar" style="height:20px"></div><div class="bar" style="height:16px"></div><div class="bar" style="height:10px"></div><div class="bar" style="height:18px"></div><div class="bar" style="height:12px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Track list + controls -->
+    <div class="player-right">
+      <audio id="audioEl" preload="none"></audio>
+      <div class="player-top">
+        <div class="player-now-label">▶ Now Playing</div>
+        <div class="player-track-title" id="nowTitle">Dil Gaya Tumne Leya</div>
+        <div class="player-track-meta" id="nowMeta">Artxonic · Urdu Indie Lofi Pop · 3:24</div>
+      </div>
+
+      <div class="player-controls">
+        <button class="ctrl-btn" onclick="prevTrack()" title="Previous">⏮</button>
+        <button class="ctrl-play" id="mainPlayBtn" onclick="togglePlay()">▶</button>
+        <button class="ctrl-btn" onclick="nextTrack()" title="Next">⏭</button>
+        <div class="progress-wrap">
+          <div class="progress-bar-bg" onclick="seekTo(event)">
+            <div class="progress-bar-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-time"><span id="timeCur">0:00</span><span id="timeTot">3:24</span></div>
+        </div>
+        <span class="free-badge-player">FREE</span>
+      </div>
+
+      <div class="play-counter">▶ Total plays: <span id="totalPlays">0</span></div>
+
+      <!-- Tracklist -->
+      <div class="tracklist" id="tracklist">
+        <div class="tl-item active" onclick="selectTrack(0)">
+          <span class="tl-num">01</span>
+          <div class="tl-info"><div class="tl-name">Dil Gaya Tumne Leya</div><div class="tl-meta">Urdu Indie Lofi · 2024</div></div>
+          <span class="tl-dur">3:24</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(1)">
+          <span class="tl-num">02</span>
+          <div class="tl-info"><div class="tl-name">Raakh Ka Sawaal</div><div class="tl-meta">Dark Trap · 2024</div></div>
+          <span class="tl-dur">2:58</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(2)">
+          <span class="tl-num">03</span>
+          <div class="tl-info"><div class="tl-name">Stargo Kram Saqi</div><div class="tl-meta">Pashto Lofi · 2024</div></div>
+          <span class="tl-dur">3:42</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(3)">
+          <span class="tl-num">04</span>
+          <div class="tl-info"><div class="tl-name">Cinematic Phonk Vol.1</div><div class="tl-meta">Phonk · 2024</div></div>
+          <span class="tl-dur">2:45</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(4)">
+          <span class="tl-num">05</span>
+          <div class="tl-info"><div class="tl-name">Shadow Frequency</div><div class="tl-meta">Dark Trap · 2024</div></div>
+          <span class="tl-dur">3:05</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(5)">
+          <span class="tl-num">06</span>
+          <div class="tl-info"><div class="tl-name">B-Roll Ambient Pack</div><div class="tl-meta">Cinematic · 2024</div></div>
+          <span class="tl-dur">4:10</span>
+        </div>
+        <div class="tl-item" onclick="selectTrack(6)">
+          <span class="tl-num">07</span>
+          <div class="tl-info"><div class="tl-name">Khaak</div><div class="tl-meta">Urdu Indie Lofi · 2026</div></div>
+          <span class="tl-dur">3:30</span>
+        </div>
+      </div>
+
+      <!-- Embed area: paste your SoundCloud/BeatStars iframe here -->
+      <div style="padding:14px 18px;border-top:1px solid var(--border-s);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey2);">
+        🎵 Paste SoundCloud / BeatStars embed iframe below to enable actual audio playback:
+        <!-- <iframe width="100%" height="80" src="YOUR_SOUNDCLOUD_EMBED_URL" scrolling="no" frameborder="no"></iframe> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEATS STORE -->
+<section class="sec sec-alt" id="beats">
+  <div class="s-label reveal">
+    <div class="s-label-line"></div>
+    <span>Buy Beats · License</span>
+  </div>
+  <h2 class="s-title reveal">Beat <em>Store</em></h2>
+
+  <div class="beats-grid reveal">
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-1">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Urdu Lofi</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">Dil Gaya Tumne Leya</div>
+        <div class="beat-meta">BPM: 72 · Key: C Minor · 3:24</div>
+        <div class="beat-footer">
+          <span class="beat-price">$29</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-2">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Dark Trap</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">Raakh Ka Sawaal</div>
+        <div class="beat-meta">BPM: 140 · Key: D Minor · 2:58</div>
+        <div class="beat-footer">
+          <span class="beat-price">$39</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-3">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Pashto Lofi</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">Stargo Kram Saqi</div>
+        <div class="beat-meta">BPM: 68 · Key: F Minor · 3:42</div>
+        <div class="beat-footer">
+          <span class="beat-price">$29</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-4">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Phonk</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">Cinematic Phonk Vol.1</div>
+        <div class="beat-meta">BPM: 130 · Key: A Minor · 2:45</div>
+        <div class="beat-footer">
+          <span class="beat-price">$35</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-5">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Cinematic</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">B-Roll Ambient Pack</div>
+        <div class="beat-meta">BPM: 60 · Key: G Major · 4:10</div>
+        <div class="beat-footer">
+          <span class="beat-price">$49</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat-card">
+      <div class="beat-card-thumb beat-bg-6">
+        <span class="beat-icon">🎵</span>
+        <span class="beat-genre-badge">Dark Trap</span>
+      </div>
+      <div class="beat-card-body">
+        <div class="beat-title">Shadow Frequency</div>
+        <div class="beat-meta">BPM: 145 · Key: E Minor · 3:05</div>
+        <div class="beat-footer">
+          <span class="beat-price">$39</span>
+          <button class="beat-buy" onclick="window.open('#','_blank')">Buy License</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beats-cta-banner reveal">
+    <div class="bcb-text">
+      <h3>Full Beat <em>Store</em></h3>
+      <p>Browse the complete Artxonic catalog — hundreds of licensed beats, stems, and exclusive tracks available for purchase. Lease, exclusive, and sync licenses available.</p>
+    </div>
+    <a href="#" target="_blank" class="bcb-btn">Explore Full Beat Store →</a>
+  </div>
+</section>
+
+<!-- STREAMING PLATFORMS -->
+<section class="sec" id="streaming">
+  <div class="s-label reveal">
+    <div class="s-label-line"></div>
+    <span>Available On</span>
+  </div>
+  <h2 class="s-title reveal">Streaming <em>Platforms</em></h2>
+
+  <div class="stream-platforms reveal">
+    <div class="sp-card">
+      <span class="sp-icon">🎧</span>
+      <div class="sp-name">Spotify</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">🍎</span>
+      <div class="sp-name">Apple Music</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">☁️</span>
+      <div class="sp-name">SoundCloud</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">▶️</span>
+      <div class="sp-name">YouTube Music</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">🎵</span>
+      <div class="sp-name">BeatStars</div>
+      <div class="sp-status">Beats For Sale</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">🌊</span>
+      <div class="sp-name">Tidal</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">📻</span>
+      <div class="sp-name">Amazon Music</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+    <div class="sp-card">
+      <span class="sp-icon">🎙</span>
+      <div class="sp-name">Deezer</div>
+      <div class="sp-status">Now Streaming</div>
+    </div>
+  </div>
+</section>
+
+<!-- STOCK MUSIC -->
+<section class="sec sec-alt" id="stockmusic">
+  <div class="s-label reveal">
+    <div class="s-label-line"></div>
+    <span>Stock Music · Sync Licensing</span>
+  </div>
+  <h2 class="s-title reveal">Stock Market <em>Music</em></h2>
+
+  <div class="stock-grid reveal">
+    <div class="stock-card">
+      <div class="stock-platform">AudioJungle / Envato</div>
+      <div class="stock-title">Cinematic Background Scores</div>
+      <div class="stock-desc">Licensed cinematic and ambient tracks available for commercial use — film scoring, YouTube, ads, and corporate video production.</div>
+      <div class="stock-tags">
+        <span class="stock-tag">Cinematic</span>
+        <span class="stock-tag">Ambient</span>
+        <span class="stock-tag">Corporate</span>
+        <span class="stock-tag">Ad Music</span>
+      </div>
+    </div>
+
+    <div class="stock-card">
+      <div class="stock-platform">Pond5</div>
+      <div class="stock-title">Royalty-Free Beat Tracks</div>
+      <div class="stock-desc">Dark trap, phonk, and lofi beats available as royalty-free stock music. Perfect for content creators, filmmakers, and advertisers.</div>
+      <div class="stock-tags">
+        <span class="stock-tag">Dark Trap</span>
+        <span class="stock-tag">Phonk</span>
+        <span class="stock-tag">Lofi</span>
+        <span class="stock-tag">Royalty-Free</span>
+      </div>
+    </div>
+
+    <div class="stock-card">
+      <div class="stock-platform">Adobe Stock / Shutterstock</div>
+      <div class="stock-title">Stock Audio &amp; Loops</div>
+      <div class="stock-desc">High-quality audio loops and full tracks licensed through Adobe Stock and Shutterstock for immediate commercial download worldwide.</div>
+      <div class="stock-tags">
+        <span class="stock-tag">Audio Loops</span>
+        <span class="stock-tag">Full Tracks</span>
+        <span class="stock-tag">Worldwide License</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUTUBE -->
+<section class="sec yt-section" id="youtube">
+  <div class="s-label reveal"><div class="s-label-line"></div><span>Watch · YouTube</span></div>
+  <h2 class="s-title reveal">Music <em>Videos</em></h2>
+  <div class="yt-grid reveal">
+    <div class="yt-card">
+      <div class="yt-thumb"><div class="yt-ph"><div class="yt-ph-icon">▶</div><span class="yt-ph-txt">Paste YouTube embed</span></div></div>
+      <div class="yt-info"><div class="yt-cat">Music Video</div><div class="yt-title">Dil Gaya Tumne Leya — Official Visualizer</div></div>
+    </div>
+    <div class="yt-card">
+      <div class="yt-thumb"><div class="yt-ph"><div class="yt-ph-icon">▶</div><span class="yt-ph-txt">Paste YouTube embed</span></div></div>
+      <div class="yt-info"><div class="yt-cat">Studio Session</div><div class="yt-title">Making an Urdu Lofi Beat with AI — Behind the Scenes</div></div>
+    </div>
+    <div class="yt-card">
+      <div class="yt-thumb"><div class="yt-ph"><div class="yt-ph-icon">▶</div><span class="yt-ph-txt">Paste YouTube embed</span></div></div>
+      <div class="yt-info"><div class="yt-cat">Beat Showcase</div><div class="yt-title">Raakh Ka Sawaal — Dark Trap Official Audio</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px;" class="reveal">
+    <a href="https://youtube.com/@artxonic" target="_blank" class="btn-yt">▶ Subscribe on YouTube</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Artxonic · AI Music Production</div>
+  <div class="f-copy">© 2024 Artxonic · Syed Shah Fahad · All Rights Reserved</div>
+  <div class="f-links">
+    <a href="index.html">Home</a>
+    <a href="artxpremium.html">ArtxPremium</a>
+    <a href="portfolio-music.html">Music Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a href="https://www.linkedin.com/in/syedshahfahad/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// ── Album Player ─────────────────────────────────────────
+const tracks=[
+  {title:'Dil Gaya Tumne Leya',meta:'Artxonic · Urdu Indie Lofi Pop · 2024',dur:'3:24',genre:'Lofi',bg:'linear-gradient(135deg,#1a0810,#0a0418,#160a08)'},
+  {title:'Raakh Ka Sawaal',meta:'Artxonic · Dark Trap · 2024',dur:'2:58',genre:'Trap',bg:'linear-gradient(135deg,#080510,#12081e,#080510)'},
+  {title:'Stargo Kram Saqi',meta:'Artxonic · Pashto Lofi · 2024',dur:'3:42',genre:'Lofi',bg:'linear-gradient(135deg,#050c08,#081a10,#050c08)'},
+  {title:'Cinematic Phonk Vol.1',meta:'Artxonic · Phonk · 2024',dur:'2:45',genre:'Phonk',bg:'linear-gradient(135deg,#0c0808,#1a1008,#0c0808)'},
+  {title:'Shadow Frequency',meta:'Artxonic · Dark Trap · 2024',dur:'3:05',genre:'Trap',bg:'linear-gradient(135deg,#0c0510,#180a1e,#0c0510)'},
+  {title:'B-Roll Ambient Pack',meta:'Artxonic · Cinematic · 2024',dur:'4:10',genre:'Cinematic',bg:'linear-gradient(135deg,#0a0810,#14101e,#0a0810)'},
+  {title:'Khaak',meta:'Artxonic · Urdu Indie Lofi · 2026',dur:'3:30',genre:'Lofi',src:'Assets/Khaak.wav',bg:'linear-gradient(135deg,#100a06,#1a1208,#0a0806)'}
+];
+
+let curIdx=0,playing=false,progress=0,interval=null;
+let totalPlays=parseInt(localStorage.getItem('artxonic_total_plays')||'0');
+
+// Real audio element — tracks with a `src` play actual audio; others stay simulated.
+const audioEl=document.getElementById('audioEl');
+function fmtTime(sec){const m=Math.floor(sec/60),s=Math.floor(sec%60);return m+':'+(s<10?'0':'')+s;}
+audioEl.addEventListener('timeupdate',()=>{
+  if(!audioEl.duration)return;
+  document.getElementById('progressFill').style.width=(audioEl.currentTime/audioEl.duration*100)+'%';
+  document.getElementById('timeCur').textContent=fmtTime(audioEl.currentTime);
+});
+audioEl.addEventListener('loadedmetadata',()=>{document.getElementById('timeTot').textContent=fmtTime(audioEl.duration);});
+audioEl.addEventListener('ended',()=>nextTrack());
+
+function fmt(n){if(n>=1000)return(n/1000).toFixed(1)+'k';return n;}
+function updateTotal(){document.getElementById('totalPlays').textContent=fmt(totalPlays);}
+
+function selectTrack(idx){
+  curIdx=idx;
+  const t=tracks[idx];
+  document.getElementById('nowTitle').textContent=t.title;
+  document.getElementById('nowMeta').textContent=t.meta;
+  document.getElementById('timeTot').textContent=t.dur;
+  document.getElementById('albumNameDisplay').textContent='Artxonic — '+t.genre;
+  document.getElementById('albumBg').style.background=t.bg;
+  progress=0;
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('timeCur').textContent='0:00';
+  document.querySelectorAll('.tl-item').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  clearInterval(interval);
+  if(t.src){audioEl.src=t.src;audioEl.load();}else{audioEl.removeAttribute('src');audioEl.load();}
+  if(playing){if(t.src){audioEl.play();}else{startProgress();}}
+}
+
+function togglePlay(){
+  playing=!playing;
+  document.getElementById('mainPlayBtn').textContent=playing?'⏸':'▶';
+  document.getElementById('albumDisc').classList.toggle('spinning',playing);
+  document.getElementById('albumWave').classList.toggle('active',playing);
+  if(playing){
+    totalPlays++;
+    localStorage.setItem('artxonic_total_plays',totalPlays);
+    updateTotal();
+    if(tracks[curIdx].src){audioEl.play();}else{startProgress();}
+  } else {
+    clearInterval(interval);
+    audioEl.pause();
+  }
+}
+
+function startProgress(){
+  clearInterval(interval);
+  const parts=tracks[curIdx].dur.split(':');
+  const totalSec=parseInt(parts[0])*60+parseInt(parts[1]);
+  interval=setInterval(()=>{
+    progress+=1;
+    if(progress>=totalSec){progress=0;nextTrack();return;}
+    const pct=(progress/totalSec)*100;
+    document.getElementById('progressFill').style.width=pct+'%';
+    const m=Math.floor(progress/60);const s=progress%60;
+    document.getElementById('timeCur').textContent=m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+
+function nextTrack(){selectTrack((curIdx+1)%tracks.length);}
+function prevTrack(){selectTrack((curIdx-1+tracks.length)%tracks.length);}
+function seekTo(e){
+  const rect=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-rect.left)/rect.width;
+  if(tracks[curIdx].src&&audioEl.duration){
+    audioEl.currentTime=pct*audioEl.duration;
+    document.getElementById('progressFill').style.width=(pct*100)+'%';
+  } else {
+    const parts=tracks[curIdx].dur.split(':');
+    const totalSec=parseInt(parts[0])*60+parseInt(parts[1]);
+    progress=Math.floor(pct*totalSec);
+    document.getElementById('progressFill').style.width=(pct*100)+'%';
+  }
+}
+
+updateTotal();
+
+// Scroll reveal
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
