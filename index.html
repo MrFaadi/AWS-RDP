@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Syed Shah Fahad — ArtxStudio | Creative Technologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;--gold-l:#F0D080;--gold-d:rgba(201,168,76,0.15);
+  --dark:#08080A;--dark2:#0F0F12;--dark3:#161618;--dark4:#1E1E22;
+  --ap:#4f8ef7;--ap2:#00d4ff;
+  --white:#F0EDE6;--muted:rgba(240,237,230,0.5);--dim:rgba(240,237,230,0.2);
+  --border:rgba(255,255,255,0.06);--border-g:rgba(201,168,76,0.2);
+  --serif:'Montserrat',sans-serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.6;}
+a{text-decoration:none;color:inherit;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.5);}70%{box-shadow:0 0 0 14px rgba(201,168,76,0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── NAV ──────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(8,8,10,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--serif);font-size:1.25rem;font-weight:600;letter-spacing:.06em;color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-split-btns{display:flex;gap:8px;}
+.nav-btn{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid;font-family:var(--sans);cursor:pointer;transition:all .3s;font-weight:500;}
+.nav-btn.premium{border-color:var(--ap);color:var(--ap);}
+.nav-btn.premium:hover{background:var(--ap);color:#fff;}
+.nav-btn.sonic{border-color:var(--gold);color:var(--gold);}
+.nav-btn.sonic:hover{background:var(--gold);color:var(--dark);}
+@media(max-width:768px){.nav-links{display:none;}.nav-logo{font-size:1.1rem;}.nav-split-btns{gap:6px;}.nav-btn{padding:6px 10px;font-size:.55rem;}}
+
+/* ── HERO / ABOUT ─────────────────────────────────────── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;position:relative;overflow:hidden;}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:72px 72px;pointer-events:none;}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 5vw 80px;position:relative;z-index:2;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;opacity:0;animation:fadeUp .8s .1s forwards;}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.hero-eyebrow span{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
+.hero-name{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:700;line-height:1.05;margin-bottom:18px;opacity:0;animation:fadeUp .8s .22s forwards;}
+.hero-name em{font-style:normal;color:var(--gold);}
+.hero-title-row{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;opacity:0;animation:fadeUp .8s .34s forwards;}
+.hero-bio{font-size:.9rem;color:var(--muted);line-height:1.85;max-width:420px;margin-bottom:36px;opacity:0;animation:fadeUp .8s .46s forwards;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;opacity:0;animation:fadeUp .8s .56s forwards;}
+.htag{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:5px 14px;border:1px solid var(--border-g);color:var(--gold);font-weight:500;}
+.hero-links{display:flex;gap:16px;opacity:0;animation:fadeUp .8s .68s forwards;}
+.hero-link{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:10px 24px;border:1px solid;font-family:var(--sans);font-weight:500;transition:all .3s;cursor:pointer;}
+.hero-link.primary{background:var(--gold);border-color:var(--gold);color:var(--dark);}
+.hero-link.primary:hover{background:var(--gold-l);border-color:var(--gold-l);}
+.hero-link.ghost{border-color:var(--dim);color:var(--muted);}
+.hero-link.ghost:hover{border-color:var(--gold);color:var(--gold);}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;animation:fadeUp 1s .3s forwards;z-index:2;}
+.profile-frame{position:relative;width:320px;height:380px;}
+.profile-img-wrap{width:260px;height:320px;border:1px solid var(--border-g);overflow:hidden;position:relative;margin:0 auto;}
+.profile-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.profile-img-placeholder{width:100%;height:100%;background:var(--dark3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.profile-img-placeholder span{font-size:3rem;opacity:.2;}
+.profile-img-placeholder p{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+.profile-badge{position:absolute;bottom:-16px;right:-16px;background:var(--dark4);border:1px solid var(--border-g);padding:16px 20px;min-width:140px;}
+.profile-badge-num{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1;}
+.profile-badge-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.profile-corner{position:absolute;width:28px;height:28px;border-color:var(--gold);border-style:solid;opacity:.4;}
+.profile-corner.tl{top:-8px;left:-8px;border-width:1px 0 0 1px;}
+.profile-corner.br{bottom:16px;right:-24px;border-width:0 1px 1px 0;}
+@media(max-width:768px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:80px;}.hero-right{height:280px;padding:20px 0 40px;}.profile-frame{width:200px;height:240px;}.profile-img-wrap{width:180px;height:220px;}.profile-badge{right:0;bottom:-10px;padding:12px 14px;}.profile-badge-num{font-size:1.8rem;}}
+
+/* ── MARQUEE ──────────────────────────────────────────── */
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--dark2);padding:14px 0;overflow:hidden;}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite;}
+.marquee-item{display:flex;align-items:center;gap:20px;padding:0 28px;white-space:nowrap;}
+.marquee-item span{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);}
+.marquee-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* ── SHARED SECTION ────────────────────────────────────── */
+.section{padding:100px 5vw;position:relative;}
+.sec-label{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.sec-label-line{width:28px;height:1px;background:var(--gold);}
+.sec-label span{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);}
+.sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:56px;}
+.sec-title em{font-style:normal;color:var(--gold);}
+
+/* ── CLIENT LOGO SLIDER ────────────────────────────────── */
+.slider-outer{position:relative;overflow:hidden;}
+.slider-outer::before,.slider-outer::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:3;pointer-events:none;}
+.slider-outer::before{left:0;background:linear-gradient(90deg,var(--dark2),transparent);}
+.slider-outer::after{right:0;background:linear-gradient(270deg,var(--dark2),transparent);}
+.slider-track{display:flex;width:max-content;will-change:transform;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;}
+.slider-track:active{cursor:grabbing;}
+.client-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 34px;border-right:1px solid var(--border);min-width:210px;transition:background .3s;cursor:default;}
+.client-card:hover{background:rgba(201,168,76,.04);}
+.client-logo-box{width:160px;height:90px;display:flex;align-items:center;justify-content:center;transition:transform .35s ease;}
+.client-card:hover .client-logo-box{transform:scale(1.1);}
+.client-logo-box img{max-height:54px;max-width:150px;width:auto;height:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.85;pointer-events:none;-webkit-user-drag:none;transition:opacity .3s,transform .3s;}
+.client-card:hover .client-logo-box img{opacity:1;}
+.client-logo-abbr{font-size:1rem;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.7);font-family:var(--sans);}
+.client-lname{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.5;max-width:150px;}
+.slider-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:28px;}
+.sl-btn{width:38px;height:38px;border:1px solid var(--border-g);background:transparent;color:var(--gold);cursor:pointer;font-size:14px;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.sl-btn:hover{background:var(--gold);color:var(--dark);}
+.sl-pause{font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--border);padding:7px 18px;cursor:pointer;font-family:var(--sans);transition:all .3s;}
+.sl-pause:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── SPLIT SCREEN ─────────────────────────────────────── */
+.split-wrap{position:relative;}
+.split-container{display:flex;width:100%;height:100vh;position:relative;}
+.panel{position:relative;width:50%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:width .65s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+@media(min-width:769px){
+  .split-container:has(.panel-left:hover) .panel-left{width:60%;}
+  .split-container:has(.panel-left:hover) .panel-right{width:40%;}
+  .split-container:has(.panel-right:hover) .panel-right{width:60%;}
+  .split-container:has(.panel-right:hover) .panel-left{width:40%;}
+}
+.panel__bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.panel:hover .panel__bg{transform:scale(1.04);}
+.panel-left .panel__bg{background-color:#0d0f14;background-image:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(79,142,247,.14) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 20%,rgba(0,212,255,.08) 0%,transparent 55%);}
+.panel-right .panel__bg{background-color:#080608;background-image:radial-gradient(ellipse 70% 60% at 75% 40%,rgba(201,168,76,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 20% 70%,rgba(139,26,26,.16) 0%,transparent 55%);}
+.panel__bg::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");pointer-events:none;opacity:.5;}
+.divider{position:absolute;left:50%;top:0;width:1px;height:100%;z-index:10;pointer-events:none;transition:left .65s cubic-bezier(.4,0,.2,1);background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.15) 25%,rgba(255,255,255,.35) 50%,rgba(255,255,255,.15) 75%,transparent 100%);}
+.panel__content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:3rem 3.5rem;max-width:520px;width:100%;}
+.p-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;margin-bottom:1.4rem;padding:.3rem .9rem;display:inline-block;}
+.panel-left .p-eyebrow{background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);color:#00d4ff;}
+.panel-right .p-eyebrow{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);}
+.p-brand{font-size:clamp(2.4rem,4.5vw,4rem);font-weight:900;letter-spacing:-.03em;margin-bottom:.6rem;line-height:1;}
+.panel-left .p-brand{color:#fff;text-shadow:0 0 60px rgba(79,142,247,.3);}
+.panel-left .p-brand .acc{color:#4f8ef7;}
+.panel-right .p-brand{font-family:var(--serif);font-weight:700;font-size:clamp(2.8rem,5vw,4.6rem);letter-spacing:.08em;background:linear-gradient(135deg,#f0d080 0%,#c9a84c 45%,#8b6914 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(201,168,76,.25));}
+.p-sub{font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.6rem;}
+.panel-left .p-sub{color:#7a8499;}
+.panel-right .p-sub{color:#7a6a5a;}
+.p-desc{font-size:.85rem;font-weight:300;line-height:1.75;max-width:360px;margin-bottom:2rem;}
+.panel-left .p-desc{color:#7a8499;}
+.panel-right .p-desc{color:#7a6a5a;}
+.p-tags{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:2.2rem;}
+.p-tag{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .75rem;font-weight:500;}
+.panel-left .p-tag{border:1px solid rgba(79,142,247,.25);color:#7a8499;}
+.panel-right .p-tag{border:1px solid rgba(201,168,76,.25);color:#7a6a5a;}
+.p-cta{display:inline-flex;align-items:center;gap:10px;padding:12px 32px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);font-weight:600;border:none;cursor:pointer;transition:all .3s;}
+.panel-left .p-cta{background:#4f8ef7;color:#fff;}
+.panel-left .p-cta:hover{background:#00d4ff;color:#0d0f14;}
+.panel-right .p-cta{background:var(--gold);color:#080608;}
+.panel-right .p-cta:hover{background:var(--gold-l);}
+.corner-d{position:absolute;width:32px;height:32px;pointer-events:none;opacity:.3;}
+.corner-d.tl{top:1.8rem;left:1.8rem;border-top:1px solid;border-left:1px solid;}
+.corner-d.br{bottom:1.8rem;right:1.8rem;border-bottom:1px solid;border-right:1px solid;}
+.panel-left .corner-d{border-color:#4f8ef7;}
+.panel-right .corner-d{border-color:var(--gold);}
+.hover-hint{position:absolute;bottom:2rem;right:2rem;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;opacity:0;transition:opacity .4s;pointer-events:none;}
+.panel-left .hover-hint{color:#7a8499;}
+.panel-right .hover-hint{color:#7a6a5a;}
+.panel:hover .hover-hint{opacity:1;}
+@media(max-width:768px){
+  .split-container{flex-direction:column;height:auto;}
+  .panel{width:100%!important;height:100vh;min-height:500px;}
+  .divider{display:none;}
+  .panel__content{padding:2rem 1.5rem;}
+  .hover-hint{display:none;}
+}
+
+/* ── REVIEWS ──────────────────────────────────────────── */
+.reviews-sub{font-size:.88rem;color:var(--muted);line-height:1.8;max-width:580px;margin:-38px 0 46px;}
+.reviews-sub strong{color:var(--gold);font-weight:600;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.review-card{position:relative;background:var(--dark2);border:1px solid var(--border);padding:30px 28px;display:flex;flex-direction:column;gap:16px;transition:transform .4s ease,border-color .4s ease,background .4s ease;}
+.review-card:hover{transform:translateY(-6px);border-color:var(--border-g);background:var(--dark3);}
+.review-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.review-stars{color:var(--gold);font-size:.8rem;letter-spacing:3px;}
+.review-badge{font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:4px 10px;white-space:nowrap;}
+.review-badge.fiverr{background:rgba(29,191,115,.12);color:#1dbf73;border:1px solid rgba(29,191,115,.4);}
+.review-badge.upwork{background:rgba(20,168,0,.12);color:#3ea50b;border:1px solid rgba(62,165,11,.4);}
+.review-text{font-size:.85rem;line-height:1.8;color:var(--muted);}
+.review-author{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+.review-avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 50% 32%,var(--dark4),var(--dark3));border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:.8rem;color:var(--gold);}
+.review-meta{display:flex;flex-direction:column;gap:2px;}
+.review-name{font-size:.78rem;font-weight:500;color:var(--white);}
+.review-loc{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+.reviews-cta{display:flex;justify-content:center;gap:14px;margin-top:40px;flex-wrap:wrap;}
+.review-link{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:11px 26px;border:1px solid var(--dim);color:var(--muted);font-weight:500;transition:all .3s;}
+.review-link:hover{border-color:var(--gold);color:var(--gold);}
+@media(max-width:900px){.reviews-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.reviews-grid{grid-template-columns:1fr;}}
+
+/* ── TEAM ─────────────────────────────────────────────── */
+.team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;}
+.team-card{position:relative;background:var(--dark2);border:1px solid var(--border);padding:40px 20px 30px;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;transition:transform .4s ease,border-color .4s ease,background .4s ease;}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .45s ease;}
+.team-card:hover{transform:translateY(-8px);border-color:var(--border-g);background:var(--dark3);}
+.team-card:hover::before{transform:scaleX(1);}
+.team-avatar{position:relative;width:94px;height:94px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--gold);background:radial-gradient(circle at 50% 32%,var(--dark4),var(--dark3));border:1px solid var(--border-g);margin-bottom:22px;transition:transform .4s ease;}
+.team-card:hover .team-avatar{transform:scale(1.06);}
+.team-avatar::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(201,168,76,.22);}
+.team-name{font-family:var(--serif);font-size:1.02rem;font-weight:600;color:var(--white);margin-bottom:9px;}
+.team-role{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);line-height:1.65;margin-bottom:15px;min-height:1.8em;}
+.team-sep{width:24px;height:1px;background:var(--border-g);margin-bottom:15px;}
+.team-link{font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .3s;}
+.team-link:hover{color:var(--gold);}
+@media(max-width:1100px){.team-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:760px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:460px){.team-grid{grid-template-columns:1fr;}}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:var(--serif);font-size:1.1rem;font-weight:300;color:var(--muted);}
+.footer-brand span{color:var(--gold);}
+.footer-copy{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);transition:color .3s;}
+.footer-links a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Artx<span>Studio</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#explore">Projects</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <div class="nav-split-btns">
+    <a href="artxpremium.html" class="nav-btn premium">ArtxPremium</a>
+    <a href="artxonic.html" class="nav-btn sonic">Artxonic</a>
+  </div>
+</nav>
+
+<!-- HERO / ABOUT -->
+<section class="hero" id="about">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Creative Technologist · Pakistan</span>
+    </div>
+    <h1 class="hero-name">Syed<br><em>Shah Fahad</em></h1>
+    <p class="hero-title-row">Founder · ArtxPremium &amp; Artxonic · 10+ Years Content Specialist</p>
+    <p class="hero-bio">
+      A multi-disciplinary creative technologist bridging the gap between human artistry and artificial intelligence. Founder of ArtxPremium — a full-service digital studio — and Artxonic, a cinematic AI-driven music production platform. Expertise spanning Graphic Design, UI/UX, Video Production, WordPress Development, and AI Music Production.
+    </p>
+    <div class="hero-tags">
+      <span class="htag">Art Direction</span>
+      <span class="htag">UI/UX Design</span>
+      <span class="htag">AI Music</span>
+      <span class="htag">Video Editing</span>
+      <span class="htag">Web Development</span>
+      <span class="htag">Microstock</span>
+    </div>
+    <div class="hero-links">
+      <a href="portfolio-design.html" class="hero-link primary">View Portfolio</a>
+      <a href="https://www.linkedin.com/in/syedshahfahad/" target="_blank" class="hero-link ghost">LinkedIn</a>
+      <a href="https://www.behance.net/shahgfx" target="_blank" class="hero-link ghost">Behance →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="profile-frame">
+      <div class="profile-img-wrap" id="profile-img">
+        <img src="Assets/Shahfahad.jpg" alt="Syed Shah Fahad">
+      </div>
+      <div class="profile-badge">
+        <div class="profile-badge-num">10+</div>
+        <div class="profile-badge-label">Years Experience</div>
+      </div>
+      <div class="profile-corner tl"></div>
+      <div class="profile-corner br"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>Graphic Design</span><div class="marquee-dot"></div><span>UI/UX Design</span><div class="marquee-dot"></div><span>Video Editing</span><div class="marquee-dot"></div><span>AI Music</span><div class="marquee-dot"></div><span>WordPress Dev</span><div class="marquee-dot"></div><span>Microstock</span><div class="marquee-dot"></div><span>Beat Production</span><div class="marquee-dot"></div><span>Social Media</span><div class="marquee-dot"></div><span>Brand Identity</span><div class="marquee-dot"></div><span>Sync Licensing</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Graphic Design</span><div class="marquee-dot"></div><span>UI/UX Design</span><div class="marquee-dot"></div><span>Video Editing</span><div class="marquee-dot"></div><span>AI Music</span><div class="marquee-dot"></div><span>WordPress Dev</span><div class="marquee-dot"></div><span>Microstock</span><div class="marquee-dot"></div><span>Beat Production</span><div class="marquee-dot"></div><span>Social Media</span><div class="marquee-dot"></div><span>Brand Identity</span><div class="marquee-dot"></div><span>Sync Licensing</span><div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- CLIENTS SLIDER -->
+<section class="section" id="clients" style="background:var(--dark2);">
+  <div class="sec-label reveal"><div class="sec-label-line"></div><span>Who Work With Us</span></div>
+  <h2 class="sec-title reveal">Clients &amp; <em>Brands</em></h2>
+
+  <div class="slider-outer reveal">
+    <div class="slider-track" id="clientTrack">
+      <!-- Slide set 1 — replace client-logo-abbr with <img src="Assets/logos/xxx.png" alt="Brand"> inside client-logo-box -->
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/Honda.png" alt="Honda Pakistan"></div><div class="client-lname">Honda Pakistan</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/BankofPunjab.png" alt="Bank of Punjab"></div><div class="client-lname">Bank of Punjab</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FaisalCottages.png" alt="Faisal Cottages"></div><div class="client-lname">Faisal Cottages</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AchhaFood.png" alt="Achha Food"></div><div class="client-lname">Achha Food</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/PopularPipes.png" alt="Popular Pipes"></div><div class="client-lname">Popular Pipes</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/Drivepk.png" alt="DrivePK"></div><div class="client-lname">DrivePK</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AHGroup.png" alt="AH Group of Companies"></div><div class="client-lname">AH Group of Companies</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">AHC</span></div><div class="client-lname">AH City</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/S2Smarketing.png" alt="S2S Marketing"></div><div class="client-lname">S2S Marketing</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/091Mall.png" alt="091 Mall"></div><div class="client-lname">091 Mall</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/NorthHills.png" alt="North Hills"></div><div class="client-lname">North Hills</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AHResidencia.png" alt="AH Residencia"></div><div class="client-lname">AH Residencia</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FlorenzaMall.png" alt="Florenza Mall"></div><div class="client-lname">Florenza Mall</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">CS</span></div><div class="client-lname">Chinar Studio</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/MallofHangu.png" alt="Mall of Hangu"></div><div class="client-lname">Mall of Hangu</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/LalaGroup.png" alt="Lala Group of Companies"></div><div class="client-lname">Lala Group of Companies</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">LTT</span></div><div class="client-lname">Lala Travel and Tours</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">LB</span></div><div class="client-lname">Lala Bop</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/MessageCommunications.png" alt="Message Communications"></div><div class="client-lname">Message Communications</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/IntelmarkMedia.png" alt="Intelmark Media"></div><div class="client-lname">Intelmark Media</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/SamaSportsacademy.png" alt="Sama Sports Academy"></div><div class="client-lname">Sama Sports Academy</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/DarsamaProperties.png" alt="Darsama Properties"></div><div class="client-lname">Darsama Properties</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FursanAlKhaleej.png" alt="Fursan Al Khaleej"></div><div class="client-lname">Fursan Al Khaleej</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/RuknAlNakheel.png" alt="Rukn Al Nakheel"></div><div class="client-lname">Rukn Al Nakheel</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">AGL</span></div><div class="client-lname">Agile</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">NEM</span></div><div class="client-lname">Nemesis</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">PC</span></div><div class="client-lname">Prime Consultant</div></div>
+      <!-- Slide set 2 (clone for seamless loop — keep identical to set 1) -->
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/Honda.png" alt="Honda Pakistan"></div><div class="client-lname">Honda Pakistan</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/BankofPunjab.png" alt="Bank of Punjab"></div><div class="client-lname">Bank of Punjab</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FaisalCottages.png" alt="Faisal Cottages"></div><div class="client-lname">Faisal Cottages</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AchhaFood.png" alt="Achha Food"></div><div class="client-lname">Achha Food</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/PopularPipes.png" alt="Popular Pipes"></div><div class="client-lname">Popular Pipes</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/Drivepk.png" alt="DrivePK"></div><div class="client-lname">DrivePK</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AHGroup.png" alt="AH Group of Companies"></div><div class="client-lname">AH Group of Companies</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">AHC</span></div><div class="client-lname">AH City</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/S2Smarketing.png" alt="S2S Marketing"></div><div class="client-lname">S2S Marketing</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/091Mall.png" alt="091 Mall"></div><div class="client-lname">091 Mall</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/NorthHills.png" alt="North Hills"></div><div class="client-lname">North Hills</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/AHResidencia.png" alt="AH Residencia"></div><div class="client-lname">AH Residencia</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FlorenzaMall.png" alt="Florenza Mall"></div><div class="client-lname">Florenza Mall</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">CS</span></div><div class="client-lname">Chinar Studio</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/MallofHangu.png" alt="Mall of Hangu"></div><div class="client-lname">Mall of Hangu</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/LalaGroup.png" alt="Lala Group of Companies"></div><div class="client-lname">Lala Group of Companies</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">LTT</span></div><div class="client-lname">Lala Travel and Tours</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">LB</span></div><div class="client-lname">Lala Bop</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/MessageCommunications.png" alt="Message Communications"></div><div class="client-lname">Message Communications</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/IntelmarkMedia.png" alt="Intelmark Media"></div><div class="client-lname">Intelmark Media</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/SamaSportsacademy.png" alt="Sama Sports Academy"></div><div class="client-lname">Sama Sports Academy</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/DarsamaProperties.png" alt="Darsama Properties"></div><div class="client-lname">Darsama Properties</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/FursanAlKhaleej.png" alt="Fursan Al Khaleej"></div><div class="client-lname">Fursan Al Khaleej</div></div>
+      <div class="client-card"><div class="client-logo-box"><img src="Assets/RuknAlNakheel.png" alt="Rukn Al Nakheel"></div><div class="client-lname">Rukn Al Nakheel</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">AGL</span></div><div class="client-lname">Agile</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">NEM</span></div><div class="client-lname">Nemesis</div></div>
+      <div class="client-card"><div class="client-logo-box"><span class="client-logo-abbr">PC</span></div><div class="client-lname">Prime Consultant</div></div>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="sl-btn" id="slPrev" title="Move logos right">‹‹</button>
+    <button class="sl-pause" id="slPauseBtn" onclick="toggleSlider()">⏸ Pause</button>
+    <button class="sl-btn" id="slNext" title="Move logos left">››</button>
+  </div>
+</section>
+
+<!-- SPLIT SCREEN -->
+<div class="split-wrap" id="explore">
+  <div class="split-container" id="splitCont">
+
+    <!-- LEFT: ARTXPREMIUM -->
+    <div class="panel panel-left" id="panelLeft" onclick="window.location='artxpremium.html'">
+      <div class="panel__bg"></div>
+      <div class="corner-d tl"></div>
+      <div class="corner-d br"></div>
+      <div class="panel__content">
+        <span class="p-eyebrow">Digital Agency</span>
+        <h2 class="p-brand">Artx<span class="acc">premium</span></h2>
+        <p class="p-sub">Where Vision Meets Execution</p>
+        <p class="p-desc">Bold digital experiences — from cinematic motion design to AI-powered web systems — crafted to elevate your brand above the noise.</p>
+        <div class="p-tags">
+          <span class="p-tag">Graphic Design</span>
+          <span class="p-tag">Animation</span>
+          <span class="p-tag">Video Editing</span>
+          <span class="p-tag">UI/UX</span>
+          <span class="p-tag">WordPress</span>
+          <span class="p-tag">AI Services</span>
+          <span class="p-tag">Social Media</span>
+        </div>
+        <button class="p-cta">Explore Services <span>→</span></button>
+      </div>
+      <span class="hover-hint">Expand →</span>
+    </div>
+
+    <div class="divider" id="divider"></div>
+
+    <!-- RIGHT: ARTXONIC -->
+    <div class="panel panel-right" id="panelRight" onclick="window.location='artxonic.html'">
+      <div class="panel__bg"></div>
+      <div class="corner-d tl"></div>
+      <div class="corner-d br"></div>
+      <div class="panel__content">
+        <span class="p-eyebrow">Music Production</span>
+        <h2 class="p-brand">Artxonic</h2>
+        <p class="p-sub">AI × Human · Cinematic Sound</p>
+        <p class="p-desc">Beats forged at the intersection of artificial intelligence and raw human emotion. Stream free, license, or sync — your sound, elevated.</p>
+        <div class="p-tags">
+          <span class="p-tag">Urdu/Pashto Lofi</span>
+          <span class="p-tag">Dark Trap</span>
+          <span class="p-tag">Phonk</span>
+          <span class="p-tag">Sync Licensing</span>
+          <span class="p-tag">Beat Store</span>
+          <span class="p-tag">Streaming</span>
+        </div>
+        <button class="p-cta">Listen &amp; Buy Beats <span>→</span></button>
+      </div>
+      <span class="hover-hint">← Expand</span>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="sec-label reveal"><div class="sec-label-line"></div><span>What Clients Say</span></div>
+  <h2 class="sec-title reveal">Reviews &amp; <em>Testimonials</em></h2>
+  <p class="reviews-sub reveal">Rated <strong>4.9&nbsp;/&nbsp;5</strong> across <strong>51 reviews</strong> on Fiverr — here's what clients say about working with us.</p>
+
+  <div class="reviews-grid reveal">
+    <!-- Real reviews pulled from Fiverr profile fiverr.com/f_creators (Artxpremium, 4.9★/51). Verbatim text + reviewer handle/country. -->
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">I had a great experience working with F_Creators on Fiverr. They created a professional design for me in a very short amount of time. I'm highly satisfied with their work and would definitely recommend them.</p>
+      <div class="review-author"><div class="review-avatar">VA</div><div class="review-meta"><span class="review-name">valemanica</span><span class="review-loc">United States</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">Amazed by this particular seller, each time I came here he deliver phenomenal work. Highly recommended. Surely come again.</p>
+      <div class="review-author"><div class="review-avatar">MA</div><div class="review-meta"><span class="review-name">malik_atelier</span><span class="review-loc">Pakistan</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">Great understanding of requirement. Seller was knowledgeable and delivered the items promptly.</p>
+      <div class="review-author"><div class="review-avatar">OR</div><div class="review-meta"><span class="review-name">originate4</span><span class="review-loc">United States</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">Fast response and the design was great! Thank you!</p>
+      <div class="review-author"><div class="review-avatar">PR</div><div class="review-meta"><span class="review-name">prosplumbing</span><span class="review-loc">United States</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">Wonderful seller. Cooperative and excellent in communications. I highly recommend.</p>
+      <div class="review-author"><div class="review-avatar">EM</div><div class="review-meta"><span class="review-name">emotionvibes</span><span class="review-loc">United States</span></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-badge fiverr">Fiverr</span></div>
+      <p class="review-text">Very professional and helpful.</p>
+      <div class="review-author"><div class="review-avatar">BE</div><div class="review-meta"><span class="review-name">beityltd</span><span class="review-loc">Spain</span></div></div>
+    </div>
+  </div>
+
+  <div class="reviews-cta reveal">
+    <a href="https://www.fiverr.com/f_creators" target="_blank" rel="noopener" class="review-link">View Fiverr Profile →</a>
+    <a href="#" target="_blank" rel="noopener" class="review-link">View Upwork Profile →</a>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="sec-label reveal"><div class="sec-label-line"></div><span>The People Behind</span></div>
+  <h2 class="sec-title reveal">Meet the <em>Team</em></h2>
+
+  <div class="team-grid reveal">
+    <!-- NOTE: placeholder names — replace with your real team members -->
+    <div class="team-card">
+      <div class="team-avatar">SF</div>
+      <div class="team-name">Syed Shah Fahad</div>
+      <div class="team-role">Founder &amp; Creative Director</div>
+      <div class="team-sep"></div>
+      <a href="https://www.linkedin.com/in/syedshahfahad/" target="_blank" class="team-link">LinkedIn</a>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">AR</div>
+      <div class="team-name">Ahmad Raza</div>
+      <div class="team-role">Lead Graphic Designer</div>
+      <div class="team-sep"></div>
+      <a href="#" class="team-link">LinkedIn</a>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">HA</div>
+      <div class="team-name">Hamza Ali</div>
+      <div class="team-role">Motion &amp; Video Editor</div>
+      <div class="team-sep"></div>
+      <a href="#" class="team-link">LinkedIn</a>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">BK</div>
+      <div class="team-name">Bilal Khan</div>
+      <div class="team-role">UI/UX &amp; Web Developer</div>
+      <div class="team-sep"></div>
+      <a href="#" class="team-link">LinkedIn</a>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">UT</div>
+      <div class="team-name">Usman Tariq</div>
+      <div class="team-role">Music Producer · Artxonic</div>
+      <div class="team-sep"></div>
+      <a href="#" class="team-link">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Artx<span>Studio</span> · Syed Shah Fahad</div>
+  <div class="footer-copy">© 2026 All Rights Reserved · Artxstudio.com</div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/syedshahfahad/" target="_blank">LinkedIn</a>
+    <a href="https://www.behance.net/shahgfx" target="_blank">Behance</a>
+    <a href="artxpremium.html">ArtxPremium</a>
+    <a href="artxonic.html">Artxonic</a>
+    <a href="blog.html">Blog</a>
+  </div>
+</footer>
+
+<script>
+// ── Client Slider ──────────────────────────────────────
+const track=document.getElementById('clientTrack');
+let sliderPaused=false;   // toggled by Pause button
+let hoverPaused=false;    // paused while cursor is over the track
+let direction=-1;         // -1 = logos drift left, +1 = logos drift right
+const SLIDER_SPEED=55;    // px per second — smooth, lively glide
+let pos=0,halfW=0,lastT=null;
+let dragging=false,dragStartX=0,dragStartPos=0;
+function wrapPos(){if(halfW>0){while(pos<=-halfW)pos+=halfW;while(pos>0)pos-=halfW;}}
+
+function measureSlider(){halfW=track.scrollWidth/2;}
+window.addEventListener('load',measureSlider);
+window.addEventListener('resize',measureSlider);
+measureSlider();
+
+function sliderFrame(t){
+  if(lastT===null)lastT=t;
+  const dt=Math.min((t-lastT)/1000,0.05); // clamp to avoid jumps after tab switch
+  lastT=t;
+  if(!sliderPaused&&!hoverPaused&&!dragging&&halfW>0){
+    pos+=direction*SLIDER_SPEED*dt;
+    wrapPos();   // seamless wrap (content is duplicated)
+    track.style.transform='translateX('+pos+'px)';
+  }
+  requestAnimationFrame(sliderFrame);
+}
+requestAnimationFrame(sliderFrame);
+
+function toggleSlider(){
+  sliderPaused=!sliderPaused;
+  document.getElementById('slPauseBtn').textContent=sliderPaused?'▶ Play':'⏸ Pause';
+}
+// Pause on hover
+track.addEventListener('mouseenter',()=>{hoverPaused=true;});
+track.addEventListener('mouseleave',()=>{hoverPaused=false;});
+
+// Direction controls: ‹‹ = move logos right, ›› = move logos left
+document.getElementById('slPrev').addEventListener('click',()=>{direction=1;});
+document.getElementById('slNext').addEventListener('click',()=>{direction=-1;});
+
+// Touch / mouse drag — swipe the logos left & right
+track.addEventListener('pointerdown',e=>{
+  dragging=true;
+  dragStartX=e.clientX;
+  dragStartPos=pos;
+  track.style.cursor='grabbing';
+  try{track.setPointerCapture(e.pointerId);}catch(_){}
+});
+track.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  pos=dragStartPos+(e.clientX-dragStartX);
+  wrapPos();
+  track.style.transform='translateX('+pos+'px)';
+});
+function endDrag(e){
+  if(!dragging)return;
+  dragging=false;
+  track.style.cursor='grab';
+  try{track.releasePointerCapture(e.pointerId);}catch(_){}
+}
+track.addEventListener('pointerup',endDrag);
+track.addEventListener('pointercancel',endDrag);
+
+// ── Split hover fallback ───────────────────────────────
+const sC=document.getElementById('splitCont'),pL=document.getElementById('panelLeft'),pR=document.getElementById('panelRight'),dv=document.getElementById('divider');
+const hasSupport=CSS.supports('selector(:has(a))');
+function isMob(){return window.innerWidth<=768;}
+if(!hasSupport){
+  const sw=(l,r)=>{if(isMob())return;pL.style.width=l;pR.style.width=r;};
+  pL.addEventListener('mouseenter',()=>sw('60%','40%'));
+  pL.addEventListener('mouseleave',()=>sw('50%','50%'));
+  pR.addEventListener('mouseenter',()=>sw('40%','60%'));
+  pR.addEventListener('mouseleave',()=>sw('50%','50%'));
+}
+function udDiv(){if(isMob())return;dv.style.left=pL.getBoundingClientRect().right+'px';}
+['mouseenter','mouseleave'].forEach(e=>{pL.addEventListener(e,()=>requestAnimationFrame(udDiv));pR.addEventListener(e,()=>requestAnimationFrame(udDiv));});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+<!-- Netlify Identity — lets you accept the admin invite & log in to /admin (blog dashboard) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if(window.netlifyIdentity){
+    window.netlifyIdentity.on('init', user=>{
+      if(!user){ window.netlifyIdentity.on('login', ()=>{ document.location.href='/admin/'; }); }
+    });
+  }
+</script>
+</body>
+</html>

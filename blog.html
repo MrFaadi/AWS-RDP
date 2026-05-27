@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — ArtxStudio | Syed Shah Fahad</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;--gold-l:#F0D080;--gold-d:rgba(201,168,76,.12);
+  --dark:#09090B;--dark2:#0F0F12;--dark3:#161618;--dark4:#1E1E22;
+  --ap:#4f8ef7;--ap2:#00d4ff;
+  --white:#F0EDE6;--muted:rgba(240,237,230,.55);--dim:rgba(240,237,230,.22);
+  --border:rgba(255,255,255,.06);--border-g:rgba(201,168,76,.18);
+  --serif:'Montserrat',sans-serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(9,9,11,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:600;letter-spacing:.05em;}
+.nav-logo span{color:var(--gold);}
+.nav-cats{display:flex;gap:6px;}
+.cat-pill{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .3s;}
+.cat-pill.active,.cat-pill:hover{border-color:var(--border-g);color:var(--gold);background:var(--gold-d);}
+.nav-back{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border-g);color:var(--gold);transition:all .3s;font-family:var(--sans);}
+.nav-back:hover{background:var(--gold);color:var(--dark);}
+@media(max-width:768px){.nav-cats{display:none;}}
+
+/* HERO */
+.blog-hero{padding:100px 5vw 64px;background:var(--dark);position:relative;overflow:hidden;}
+.bh-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 40%,rgba(201,168,76,.05) 0%,transparent 60%);pointer-events:none;}
+.bh-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.02) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
+.bh-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;opacity:0;animation:fadeUp .7s .1s forwards;}
+.bh-line{width:28px;height:1px;background:var(--gold);}
+.bh-eyebrow span{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);}
+.bh-title{font-family:var(--serif);font-size:clamp(42px,5vw,68px);font-weight:700;line-height:1.05;opacity:0;animation:fadeUp .7s .2s forwards;}
+.bh-title em{font-style:normal;color:var(--gold);}
+.bh-desc{font-size:.85rem;color:var(--muted);line-height:1.8;max-width:480px;margin-top:14px;opacity:0;animation:fadeUp .7s .32s forwards;}
+
+/* FILTER BAR */
+.filter-bar{padding:24px 5vw 0;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--dark2);}
+.f-pill{font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:8px 18px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .3s;margin-bottom:-1px;}
+.f-pill.active{border-color:var(--border-g);border-bottom-color:var(--dark2);color:var(--gold);background:var(--dark2);}
+.f-pill:hover{color:var(--gold);}
+
+/* BLOG GRID */
+.blog-wrap{background:var(--dark2);padding:48px 5vw 100px;}
+.blog-layout{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start;}
+@media(max-width:900px){.blog-layout{grid-template-columns:1fr;}}
+
+/* FEATURED */
+.featured-card{border:1px solid var(--border);overflow:hidden;background:var(--dark3);margin-bottom:24px;cursor:pointer;transition:border-color .3s;}
+.featured-card:hover{border-color:var(--border-g);}
+.fc-thumb{height:300px;display:flex;align-items:flex-end;justify-content:flex-start;padding:28px;position:relative;overflow:hidden;}
+.fc-bg-1{background:linear-gradient(135deg,#0d0f14 0%,#0a1020 50%,#0d0f14 100%);}
+.fc-bg-2{background:linear-gradient(135deg,#0a0810 0%,#12081e 50%,#0a0810 100%);}
+.fc-bg-3{background:linear-gradient(135deg,#0c0508 0%,#1a0308 50%,#0c0508 100%);}
+.fc-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,15,20,.9) 0%,rgba(13,15,20,.2) 60%,transparent 100%);}
+.fc-thumb-content{position:relative;z-index:1;}
+.fc-cat{font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.fc-cat::before{content:'';width:16px;height:1px;background:var(--gold);}
+.fc-heading{font-family:var(--serif);font-size:1.6rem;font-weight:700;line-height:1.2;color:var(--white);}
+.fc-body{padding:24px 28px;}
+.fc-excerpt{font-size:.82rem;color:var(--muted);line-height:1.8;margin-bottom:20px;}
+.fc-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.fc-author{display:flex;align-items:center;gap:10px;}
+.fc-avatar{width:32px;height:32px;border-radius:50%;background:var(--dark4);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--gold);font-weight:600;}
+.fc-author-name{font-size:.62rem;font-weight:500;color:var(--white);}
+.fc-date{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.fc-read{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.fc-read::after{content:' →';}
+
+/* SMALL POSTS */
+.posts-list{display:flex;flex-direction:column;gap:2px;}
+.post-card{background:var(--dark3);border:1px solid var(--border);padding:24px 28px;cursor:pointer;transition:all .3s;display:flex;flex-direction:column;}
+.post-card:hover{border-color:var(--border-g);background:var(--dark4);}
+.pc-cat{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.pc-title{font-family:var(--serif);font-size:1.05rem;font-weight:300;color:var(--white);line-height:1.3;margin-bottom:10px;}
+.pc-excerpt{font-size:.75rem;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.pc-meta{display:flex;align-items:center;justify-content:space-between;}
+.pc-date{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+.pc-read{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.pc-read::after{content:' →';}
+.pc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.pc-tag{font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--border);color:var(--dim);}
+
+/* SIDEBAR */
+.sidebar{}
+.sb-section{background:var(--dark3);border:1px solid var(--border);padding:24px;margin-bottom:20px;}
+.sb-title{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.sb-title::before{content:'';width:16px;height:1px;background:var(--gold);}
+.sb-cat-list{display:flex;flex-direction:column;gap:2px;}
+.sb-cat{padding:10px 12px;border:1px solid var(--border);font-size:.62rem;color:var(--muted);cursor:pointer;transition:all .3s;display:flex;justify-content:space-between;align-items:center;}
+.sb-cat:hover{border-color:var(--border-g);color:var(--gold);}
+.sb-cat-count{font-size:.52rem;color:var(--dim);}
+.sb-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.sb-tag{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .3s;}
+.sb-tag:hover{border-color:var(--border-g);color:var(--gold);}
+.sb-about{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+.sb-avatar{width:56px;height:56px;border-radius:50%;background:var(--dark4);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.sb-name{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--white);}
+.sb-role{font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.sb-bio{font-size:.72rem;color:var(--muted);line-height:1.7;}
+.sb-links{display:flex;gap:8px;justify-content:center;}
+.sb-link{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--border-g);color:var(--gold);transition:all .3s;}
+.sb-link:hover{background:var(--gold);color:var(--dark);}
+
+/* NEWSLETTER */
+.newsletter{background:var(--dark3);border:1px solid var(--border-g);padding:48px 5vw;text-align:center;margin:0;}
+.nl-title{font-family:var(--serif);font-size:clamp(28px,3.5vw,40px);font-weight:700;margin-bottom:12px;}
+.nl-title em{font-style:normal;color:var(--gold);}
+.nl-desc{font-size:.8rem;color:var(--muted);max-width:380px;margin:0 auto 28px;line-height:1.8;}
+.nl-form{display:flex;gap:0;max-width:400px;margin:0 auto;border:1px solid var(--border-g);}
+.nl-input{flex:1;padding:12px 16px;background:var(--dark4);border:none;color:var(--white);font-family:var(--sans);font-size:.75rem;outline:none;}
+.nl-input::placeholder{color:var(--dim);}
+.nl-btn{padding:12px 20px;background:var(--gold);border:none;color:var(--dark);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;font-family:var(--sans);font-weight:700;cursor:pointer;white-space:nowrap;transition:background .3s;}
+.nl-btn:hover{background:var(--gold-l);}
+
+footer{background:var(--dark);border-top:1px solid var(--border);padding:28px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.f-logo{font-family:var(--serif);font-size:.95rem;font-weight:300;color:var(--muted);}
+.f-logo span{color:var(--gold);}
+.f-links{display:flex;gap:18px;}
+.f-links a{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);transition:color .3s;}
+.f-links a:hover{color:var(--gold);}
+
+/* Article modal */
+.article-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;overflow-y:auto;padding:60px 20px;}
+.article-modal.open{display:block;}
+.am-inner{max-width:720px;margin:0 auto;background:var(--dark2);border:1px solid var(--border-g);}
+.am-header{padding:36px 40px 24px;border-bottom:1px solid var(--border);}
+.am-cat{font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.am-title{font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.2;margin-bottom:16px;}
+.am-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.am-author{font-size:.6rem;color:var(--muted);letter-spacing:.1em;}
+.am-date{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}
+.am-body{padding:32px 40px;font-family:var(--serif);font-size:1.05rem;font-weight:300;line-height:1.9;color:var(--muted);}
+.am-body p{margin-bottom:20px;}
+.am-body h3{font-size:1.3rem;color:var(--white);margin:28px 0 12px;}
+.am-body em{color:var(--gold);font-style:normal;}
+.am-footer{padding:20px 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.am-close{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--border-g);color:var(--gold);background:transparent;cursor:pointer;font-family:var(--sans);}
+@media(max-width:560px){.am-header,.am-body,.am-footer{padding-left:20px;padding-right:20px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Artx<span>Studio</span> · Blog</div>
+  <div class="nav-cats">
+    <button class="cat-pill active" onclick="filterPosts('all',this)">All Posts</button>
+    <button class="cat-pill" onclick="filterPosts('design',this)">Design</button>
+    <button class="cat-pill" onclick="filterPosts('music',this)">Music</button>
+    <button class="cat-pill" onclick="filterPosts('ai',this)">AI</button>
+    <button class="cat-pill" onclick="filterPosts('business',this)">Business</button>
+  </div>
+  <a href="index.html" class="nav-back">← Home</a>
+</nav>
+
+<div class="blog-hero">
+  <div class="bh-bg"></div><div class="bh-grid"></div>
+  <div class="bh-eyebrow"><div class="bh-line"></div><span>Creative Insights · Syed Shah Fahad</span></div>
+  <h1 class="bh-title">Journal &amp; <em>Blog</em></h1>
+  <p class="bh-desc">Thoughts on design, AI music production, creative entrepreneurship, and the intersection of technology and human creativity — from Abbottabad to the world.</p>
+</div>
+
+<div class="filter-bar">
+  <button class="f-pill active" onclick="filterPosts('all',this)">All Posts</button>
+  <button class="f-pill" onclick="filterPosts('design',this)">Design</button>
+  <button class="f-pill" onclick="filterPosts('music',this)">Music &amp; AI</button>
+  <button class="f-pill" onclick="filterPosts('ai',this)">AI Tools</button>
+  <button class="f-pill" onclick="filterPosts('business',this)">Business</button>
+  <button class="f-pill" onclick="filterPosts('tutorial',this)">Tutorials</button>
+</div>
+
+<div class="blog-wrap">
+  <div class="blog-layout">
+
+    <!-- MAIN POSTS -->
+    <div class="main-posts">
+
+      <!-- Posts render dynamically from posts.json (managed via /admin) -->
+      <div id="featuredSlot"></div>
+      <div class="posts-list" id="postsList"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-section">
+        <div class="sb-title">About the Author</div>
+        <div class="sb-about">
+          <div class="sb-avatar">👤</div>
+          <div class="sb-name">Syed Shah Fahad</div>
+          <div class="sb-role">Creative Technologist · Founder</div>
+          <div class="sb-bio">Designer, AI music producer, and founder of ArtxPremium &amp; Artxonic. Writing about design, music, and the creative life from Abbottabad, Pakistan.</div>
+          <div class="sb-links">
+            <a href="https://www.linkedin.com/in/syedshahfahad/" target="_blank" class="sb-link">LinkedIn</a>
+            <a href="https://www.behance.net/shahgfx" target="_blank" class="sb-link">Behance</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Categories</div>
+        <div class="sb-cat-list">
+          <div class="sb-cat" data-cat="design" onclick="filterPosts(\'design\',null)"><span>Design</span><span class="sb-cat-count">2 posts</span></div>
+          <div class="sb-cat" data-cat="music" onclick="filterPosts(\'music\',null)"><span>Music &amp; AI</span><span class="sb-cat-count">2 posts</span></div>
+          <div class="sb-cat" data-cat="ai" onclick="filterPosts(\'ai\',null)"><span>AI Tools</span><span class="sb-cat-count">2 posts</span></div>
+          <div class="sb-cat" data-cat="business" onclick="filterPosts(\'business\',null)"><span>Business</span><span class="sb-cat-count">3 posts</span></div>
+          <div class="sb-cat" data-cat="tutorial" onclick="filterPosts(\'tutorial\',null)"><span>Tutorials</span><span class="sb-cat-count">3 posts</span></div>
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Popular Tags</div>
+        <div class="sb-tags">
+          <span class="sb-tag">AI Design</span><span class="sb-tag">Branding</span><span class="sb-tag">Beat Selling</span><span class="sb-tag">Figma</span><span class="sb-tag">Freelancing</span><span class="sb-tag">Midjourney</span><span class="sb-tag">Microstock</span><span class="sb-tag">Urdu Lofi</span><span class="sb-tag">Pakistan</span><span class="sb-tag">Passive Income</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="nl-title reveal">Get <em>Creative Insights</em> Weekly</div>
+  <div class="nl-desc reveal">Design tips, AI tool reviews, music production notes, and business lessons — delivered to your inbox every week.</div>
+  <div class="nl-form reveal">
+    <input class="nl-input" type="email" placeholder="your@email.com"/>
+    <button class="nl-btn" onclick="alert('Thank you! Newsletter coming soon.')">Subscribe →</button>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">Artx<span>Studio</span> · Blog</div>
+  <div class="f-links">
+    <a href="index.html">Home</a>
+    <a href="artxpremium.html">ArtxPremium</a>
+    <a href="artxonic.html">Artxonic</a>
+    <a href="portfolio-design.html">Design Portfolio</a>
+    <a href="portfolio-music.html">Music Portfolio</a>
+  </div>
+</footer>
+
+<!-- Article Modal -->
+<div class="article-modal" id="articleModal" onclick="closeArticle()">
+  <div class="am-inner" onclick="event.stopPropagation()">
+    <div class="am-header">
+      <div class="am-cat" id="amCat">Category</div>
+      <div class="am-title" id="amTitle">Article Title</div>
+      <div class="am-meta">
+        <span class="am-author">By Syed Shah Fahad</span>
+        <span class="am-date" id="amDate">2024</span>
+      </div>
+    </div>
+    <div class="am-body" id="amBody"></div>
+    <div class="am-footer">
+      <span style="font-size:.58rem;color:var(--muted);">Artxonic · Syed Shah Fahad</span>
+      <button class="am-close" onclick="closeArticle()">✕ Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+// Dynamic blog — posts load from posts.json (managed via /admin)
+let POSTS = [];
+const obs = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting){ el.target.classList.add('visible'); obs.unobserve(el.target); } }), { threshold:.1 });
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function readTime(md){ const w=(md||'').replace(/[#>*_`~\[\]()\-]/g,' ').split(/\s+/).filter(Boolean).length; return Math.max(1,Math.round(w/200))+' min'; }
+function mShort(d){ if(!d) return ''; const dt=new Date(d); return isNaN(dt)?'':dt.toLocaleString('en-US',{month:'short',year:'numeric'}); }
+function mLong(d){ if(!d) return ''; const dt=new Date(d); return isNaN(dt)?'':dt.toLocaleString('en-US',{month:'long',year:'numeric'}); }
+
+function renderPosts(){
+  POSTS.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const featured = POSTS.find(p=>p.featured) || POSTS[0];
+  const rest = POSTS.filter(p=>p!==featured);
+
+  const fs = document.getElementById('featuredSlot');
+  if(featured){
+    const bg = featured.cover ? `style="background-image:url('${featured.cover}');background-size:cover;background-position:center;"` : '';
+    fs.innerHTML = `<div class="featured-card reveal" data-cat="${(featured.cats||[]).join(' ')}" onclick="openArticle('${featured.slug}')">
+      <div class="fc-thumb fc-bg-1" ${bg}>
+        <div class="fc-overlay"></div>
+        <div class="fc-thumb-content">
+          <div class="fc-cat">${esc(featured.catLabel)}</div>
+          <div class="fc-heading">${esc(featured.title)}</div>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="fc-excerpt">${esc(featured.excerpt)}</div>
+        <div class="fc-meta">
+          <div class="fc-author"><div class="fc-avatar">SF</div><div><div class="fc-author-name">Syed Shah Fahad</div><div class="fc-date">${mLong(featured.date)} · ${readTime(featured.body)} read</div></div></div>
+          <span class="fc-read">Read Article</span>
+        </div>
+      </div>
+    </div>`;
+  } else { fs.innerHTML=''; }
+
+  const pl = document.getElementById('postsList');
+  pl.innerHTML = rest.map(p=>`<div class="post-card reveal" data-cat="${(p.cats||[]).join(' ')}" onclick="openArticle('${p.slug}')">
+      <div class="pc-cat">${esc(p.catLabel)}</div>
+      <div class="pc-title">${esc(p.title)}</div>
+      <div class="pc-tags">${(p.tags||[]).map(t=>`<span class="pc-tag">${esc(t)}</span>`).join('')}</div>
+      <div class="pc-excerpt">${esc(p.excerpt)}</div>
+      <div class="pc-meta"><span class="pc-date">${mShort(p.date)} · ${readTime(p.body)}</span><span class="pc-read">Read</span></div>
+    </div>`).join('');
+
+  const counts={}; POSTS.forEach(p=>(p.cats||[]).forEach(c=>counts[c]=(counts[c]||0)+1));
+  document.querySelectorAll('.sb-cat[data-cat]').forEach(el=>{ const n=counts[el.dataset.cat]||0; const c=el.querySelector('.sb-cat-count'); if(c) c.textContent=n+' post'+(n===1?'':'s'); });
+
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+function openArticle(slug){
+  const a=POSTS.find(p=>p.slug===slug); if(!a) return;
+  document.getElementById('amCat').textContent=a.catLabel||'';
+  document.getElementById('amTitle').textContent=a.title||'';
+  document.getElementById('amDate').textContent=(mLong(a.date)?mLong(a.date)+' · ':'')+readTime(a.body)+' read';
+  document.getElementById('amBody').innerHTML = window.marked ? marked.parse(a.body||'') : esc(a.body).replace(/\n/g,'<br>');
+  document.getElementById('articleModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeArticle(){
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function filterPosts(cat,btn){
+  document.querySelectorAll('.f-pill,.cat-pill').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.post-card').forEach(card=>{ const c=card.dataset.cat||''; card.style.display=(cat==='all'||c.split(' ').includes(cat))?'flex':'none'; });
+}
+
+fetch('posts.json',{cache:'no-store'})
+  .then(r=>r.json())
+  .then(d=>{ POSTS=(d&&d.posts)||[]; renderPosts(); })
+  .catch(()=>{ const pl=document.getElementById('postsList'); if(pl) pl.innerHTML='<p style="color:var(--muted);font-size:.85rem;line-height:1.9;">Could not load posts.json.'+(location.protocol==='file:'?'<br><br>⚠️ This page must be opened through a web server, not by double-clicking the file. Run <b>python -m http.server 8731</b> in this folder, then open <b>http://localhost:8731/blog.html</b>':'')+'</p>'; });
+</script>
+</body>
+</html>

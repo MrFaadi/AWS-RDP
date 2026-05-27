@@ -1,0 +1,6 @@
+# Local backup of un-watermarked portfolio originals — keep local, don't deploy
+_portfolio_originals/
+
+# OS / editor junk
+Thumbs.db
+.DS_Store

@@ -1,0 +1,155 @@
+{
+  "posts": [
+    {
+      "excerpt": "The process behind Artxonic's signature sound — how I blend AI-generated melodic elements with real human emotion, Urdu poetry, and cinematic production techniques to create something entirely new.",
+      "body": "When I started Artxonic, I had one goal: create music that feels genuinely human but leverages the power of AI to reach places human creativity alone couldn't.\n\n## The Process\n\nI start every track with a feeling — a *mood*, a memory, or an emotion. I'll write Urdu or Pashto poetry first, before touching any music software. This anchor keeps the track human even as AI tools shape its production.\n\nThen I use AI tools to generate melodic loops, chord progressions, and atmospheric textures. The human step comes in layering, mixing, and breathing emotion into the structure.\n\n## The Result\n\nTracks like *Dil Gaya Tumne Leya* are 60% AI-generated in their musical foundation, but 100% human in their feeling. That's the Artxonic formula.",
+      "slug": "how-ai-music",
+      "featured": true,
+      "date": "2024-12-01",
+      "cover": "",
+      "title": "How I Produce Urdu Lofi Music Using AI + Human Touch",
+      "tags": [
+        "Urdu Lofi",
+        "AI Music",
+        "Production"
+      ],
+      "cats": [
+        "music",
+        "ai"
+      ],
+      "catLabel": "Music Production · AI"
+    },
+    {
+      "excerpt": "From initial discovery calls to final delivery — how I approach brand identity projects, what questions I ask, and the tools I use to create visual systems that last.",
+      "body": "Brand identity projects are my favourite type of work at ArtxPremium. There's nothing more satisfying than watching a business transform when it gets a visual identity that truly fits.\n\n## Step 1: Discovery\n\nBefore touching any design software, I spend at least 2 hours with the client understanding their *vision, audience, and competitors*. The questions I ask shape everything.\n\n## Step 2: Concept Development\n\nI sketch 3 radically different directions — not variations of one idea, but truly different approaches. This gives clients genuine choices.\n\n## Step 3: Refinement & Delivery\n\nAfter client feedback, I refine the chosen direction and deliver a complete brand guide including logo variations, color palette, typography, and usage guidelines.",
+      "slug": "brand-identity",
+      "featured": false,
+      "date": "2024-11-01",
+      "cover": "",
+      "title": "Building a Brand Identity From Scratch — My Complete Process",
+      "tags": [
+        "Branding",
+        "Logo Design",
+        "Figma"
+      ],
+      "cats": [
+        "design",
+        "tutorial"
+      ],
+      "catLabel": "Design · Tutorial"
+    },
+    {
+      "excerpt": "A practical breakdown of the AI tools that have genuinely changed how I work — from prompt engineering in Midjourney to automated design generation workflows.",
+      "body": "After two years of daily use, these are the AI tools that earned a permanent spot in my workflow — not the hyped ones, the ones that actually save time.\n\n## 1. Midjourney\n\nMy go-to for mood boards, concept art, and visual exploration. The key is *prompt engineering* — learning to describe exactly the lighting, composition, and style you want.\n\n## 2. Adobe Firefly\n\nGenerative fill inside Photoshop is a genuine game-changer for extending backgrounds and removing objects cleanly.\n\n## 3. Figma + AI plugins\n\nFor rapid UI mockups and auto-layout suggestions.\n\n## 4 & 5: ChatGPT and Runway\n\nChatGPT for copy, naming, and briefs; Runway for quick motion and video tasks. Together they cover 80% of my AI-assisted work.",
+      "slug": "ai-design-tools",
+      "featured": false,
+      "date": "2024-10-01",
+      "cover": "",
+      "title": "Top 5 AI Design Tools I Use Every Day in 2024",
+      "tags": [
+        "Midjourney",
+        "DALL·E",
+        "AI Workflow"
+      ],
+      "cats": [
+        "ai",
+        "tutorial"
+      ],
+      "catLabel": "AI Tools · Design"
+    },
+    {
+      "excerpt": "Everything I wish I knew when I started selling beats — from licensing types to pricing strategy, platform selection, and how to build a catalog that actually sells.",
+      "body": "When I first put beats on BeatStars, I made $0 for three months. Here's what actually changed things.\n\n## The Reality\n\nMost beat stores fail not because the music is bad — it's because they have no *marketing strategy*. Your BeatStars page is a product, not just a music folder.\n\n## What Actually Works\n\nTagging beats correctly, creating YouTube content showcasing the beats, and building a recognizable brand (hence Artxonic) — these three things moved the needle more than the music quality itself.",
+      "slug": "beat-selling",
+      "featured": false,
+      "date": "2024-09-01",
+      "cover": "",
+      "title": "How to Start Selling Beats Online — What I Learned the Hard Way",
+      "tags": [
+        "BeatStars",
+        "Beat Selling",
+        "Passive Income"
+      ],
+      "cats": [
+        "music",
+        "business"
+      ],
+      "catLabel": "Music Business"
+    },
+    {
+      "excerpt": "I've been a contributor on Adobe Stock, Shutterstock, and Dreamstime for over a year. Here's what actually works, what doesn't, and whether it's worth your time as a designer.",
+      "body": "Microstock is genuinely passive once you build a portfolio — but it takes 6-12 months before you see meaningful income. Here's my honest experience.\n\n## Platform Rankings (My Experience)\n\n*Adobe Stock* pays the best per download. Shutterstock has the highest volume but lower per-download rates. Dreamstime is slower but worth submitting to for reach.\n\n## What Sells\n\nCorporate scenes, technology themes, and Pakistani cultural content (rare on stock platforms) perform well. Avoid oversaturated categories like sunsets and coffee cups.",
+      "slug": "microstock",
+      "featured": false,
+      "date": "2024-08-01",
+      "cover": "",
+      "title": "Earning Passive Income as a Microstock Contributor — My Experience",
+      "tags": [
+        "Adobe Stock",
+        "Shutterstock",
+        "Passive Income"
+      ],
+      "cats": [
+        "design",
+        "business"
+      ],
+      "catLabel": "Business · Microstock"
+    },
+    {
+      "excerpt": "Everybody is scared of AI taking design jobs. Here's my honest take — after using AI tools daily for two years — on what's actually changing, and how to stay relevant.",
+      "body": "Hot take: the designers panicking about AI are usually the ones relying on technical execution as their value-add. The designers thriving with AI are the ones who lead with *thinking*.\n\n## What AI Actually Does\n\nAI automates production. It does not automate taste, strategy, client relationships, or creative direction. If your value was \"I can make this in Photoshop\" — yes, you're in trouble. If your value is \"I understand what this brand needs\" — you're fine.",
+      "slug": "ai-future",
+      "featured": false,
+      "date": "2024-07-01",
+      "cover": "",
+      "title": "AI Won't Replace Designers — But It Will Replace Bad Ones",
+      "tags": [
+        "AI Future",
+        "Design Industry",
+        "Opinion"
+      ],
+      "cats": [
+        "ai",
+        "design"
+      ],
+      "catLabel": "AI · Opinion"
+    },
+    {
+      "excerpt": "The realities of building a creative freelance career from Abbottabad — dealing with international clients, pricing in USD, navigating Payoneer and Wise, and building a reputation from scratch.",
+      "body": "Building a creative freelance career from Abbottabad, KPK — not Karachi, not Lahore — is its own specific challenge. Here's what I wish I knew.\n\n## Getting International Clients\n\nBehance, LinkedIn, and Upwork are the three platforms that actually produced results for me. Cold emailing is underrated — I've landed $500+ projects from a single well-written cold email.\n\n## Getting Paid\n\n*Wise* is the best option I've found for receiving international payments. Payoneer works too but has higher fees. Always get 50% upfront — always.",
+      "slug": "freelance-pakistan",
+      "featured": false,
+      "date": "2024-06-01",
+      "cover": "",
+      "title": "Freelancing as a Creative in Pakistan — Real Talk",
+      "tags": [
+        "Freelancing",
+        "Pakistan",
+        "Career"
+      ],
+      "cats": [
+        "business",
+        "tutorial"
+      ],
+      "catLabel": "Business · Freelancing"
+    },
+    {
+      "excerpt": "I start every track with a feeling — a mood, a memory, or an emotion. I'll write Urdu or Pashto poetry first, before touching any music software. This anchor keeps the track human even as AI tools shape its production.\n\n",
+      "body": "\n\n## The Process\n\nI start every track with a feeling — a *mood*, a memory, or an emotion. I'll write Urdu or Pashto poetry first, before touching any music software. This anchor keeps the track human even as AI tools shape its production.\n\nThen I use AI tools to generate melodic loops, chord progressions, and atmospheric textures. The human step comes in layering, mixing, and breathing emotion into the structure.\n\n## The Result",
+      "slug": "How we can make money from Images",
+      "featured": true,
+      "date": "2026-05-27",
+      "cover": "/uploads/gemini_generated_image_1c2jj71c2jj71c2j.png",
+      "title": "How we can make money from Images",
+      "tags": [
+        "Earning",
+        "Design",
+        "stock"
+      ],
+      "cats": [
+        "design"
+      ],
+      "catLabel": "Earning"
+    }
+  ]
+}
