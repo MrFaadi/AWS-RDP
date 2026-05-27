@@ -1,0 +1,94 @@
+# Decap CMS configuration — the blog dashboard
+# Backend is set for Netlify (easiest auth via Netlify Identity + Git Gateway).
+# If you deploy on Vercel / GitHub Pages instead, tell me and I'll switch this
+# to the GitHub OAuth backend.
+
+backend:
+  name: git-gateway
+  branch: main           # change to "master" if that's your default branch
+
+# Lets you test the dashboard locally before deploying:
+#   1) run:  npx decap-server
+#   2) open: http://localhost:8731/admin/  (while the site is served)
+local_backend: true
+
+media_folder: "uploads"   # uploaded images are committed here
+public_folder: "/uploads" # how those images are referenced on the site
+
+publish_mode: editorial_workflow   # gives you Draft → In Review → Publish
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    files:
+      - name: "posts"
+        label: "Blog Posts"
+        file: "posts.json"
+        format: json
+        description: "All blog posts. Add, edit, reorder or delete entries below."
+        fields:
+          - label: "Posts"
+            name: "posts"
+            widget: "list"
+            label_singular: "Post"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug (URL id)", name: "slug", widget: "string", hint: "lowercase-with-dashes, must be unique — e.g. my-first-post" }
+              - { label: "Category label (shown on card)", name: "catLabel", widget: "string", hint: "e.g. Design · Tutorial" }
+              - label: "Filter categories"
+                name: "cats"
+                widget: "select"
+                multiple: true
+                options: ["design", "music", "ai", "business", "tutorial"]
+                hint: "Used by the filter pills & sidebar counts"
+              - { label: "Tags", name: "tags", widget: "list", default: [], required: false }
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Cover image", name: "cover", widget: "image", required: false, hint: "Optional — used on the featured card" }
+              - { label: "Featured (big card on top)", name: "featured", widget: "boolean", default: false }
+              - { label: "Excerpt (short summary)", name: "excerpt", widget: "text" }
+              - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "portfolio"
+    label: "Portfolio"
+    files:
+      - name: "items"
+        label: "Portfolio Items"
+        file: "portfolio.json"
+        format: json
+        description: "Your client work — images, videos, GIFs, websites, UI/UX. Shows on portfolio-design.html."
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            label_singular: "Portfolio item"
+            summary: "{{fields.title}}  ·  {{fields.type}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Client", name: "client", widget: "string", required: false }
+              - label: "Type / Category"
+                name: "type"
+                widget: "select"
+                hint: "Decides which filter tab it shows under"
+                options:
+                  - { label: "Image (graphic / print / social)", value: "image" }
+                  - { label: "Video", value: "video" }
+                  - { label: "Website", value: "website" }
+                  - { label: "UI/UX Design", value: "uiux" }
+              - { label: "Cover image / thumbnail", name: "cover", widget: "image", required: false, hint: "Shown in the grid (the card). For a GIF, upload it here." }
+              - label: "Gallery images (shown on-site)"
+                name: "gallery"
+                widget: "list"
+                required: false
+                hint: "Upload ALL images for this project — they show in the on-site viewer when clicked (no need to visit Behance). Add as many as you want."
+                field: { label: "Image", name: "image", widget: "image" }
+              - label: "Videos (shown on-site)"
+                name: "videos"
+                widget: "list"
+                required: false
+                hint: "Paste YouTube / Vimeo / .mp4 / .gif links — they play inside the on-site viewer"
+                field: { label: "Video URL", name: "url", widget: "string" }
+              - { label: "External link (optional Behance / website button)", name: "link", widget: "string", required: false, hint: "Leave EMPTY to keep visitors on your site. If set, a 'View on Behance / Visit Website' button appears." }
+              - { label: "Tags", name: "tags", widget: "list", default: [], required: false }
+              - { label: "Date / Year", name: "date", widget: "string", required: false, hint: "e.g. 2024" }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false }

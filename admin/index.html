@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager — ArtxStudio Blog</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    #gate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
+      background:#08080A;font-family:'Inter',system-ui,sans-serif;color:#F0EDE6;}
+    #gate .card{width:340px;max-width:88vw;background:#0F0F12;border:1px solid rgba(201,168,76,.25);
+      padding:38px 32px;text-align:center;}
+    #gate .logo{font-size:1.4rem;font-weight:700;letter-spacing:.04em;margin-bottom:6px;}
+    #gate .logo span{color:#C9A84C;}
+    #gate .sub{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,237,230,.45);margin-bottom:26px;}
+    #gate input{width:100%;padding:13px 15px;background:#161618;border:1px solid rgba(255,255,255,.1);
+      color:#F0EDE6;font-size:.9rem;outline:none;transition:border .2s;}
+    #gate input:focus{border-color:#C9A84C;}
+    #gate button{width:100%;margin-top:14px;padding:13px;background:#C9A84C;border:none;color:#08080A;
+      font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:background .2s;}
+    #gate button:hover{background:#F0D080;}
+    #gate .err{color:#e06666;font-size:.72rem;margin-top:14px;min-height:1em;}
+    #gate .note{color:rgba(240,237,230,.3);font-size:.58rem;margin-top:20px;line-height:1.6;}
+  </style>
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════════════════
+       LOCAL PASSWORD GATE  (light protection for pre-deploy / casual use)
+       👉 CHANGE THE PASSWORD BELOW to your own:
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    const ADMIN_PASSWORD = "199541";   // ← change this to your own password
+
+    (function () {
+      if (sessionStorage.getItem("cms_ok") === "1") { loadCMS(); return; }
+
+      var gate = document.createElement("div");
+      gate.id = "gate";
+      gate.innerHTML =
+        '<div class="card">' +
+        '<div class="logo">Artx<span>Studio</span></div>' +
+        '<div class="sub">Blog Dashboard</div>' +
+        '<input id="pw" type="password" placeholder="Enter password" autofocus />' +
+        '<button id="go">Unlock →</button>' +
+        '<div class="err" id="err"></div>' +
+        '<div class="note">Private area. Real security is enabled via Netlify Identity once deployed.</div>' +
+        '</div>';
+      document.body.appendChild(gate);
+
+      var pw = document.getElementById("pw");
+      var err = document.getElementById("err");
+      function tryUnlock() {
+        if (pw.value === ADMIN_PASSWORD) {
+          sessionStorage.setItem("cms_ok", "1");
+          gate.remove();
+          loadCMS();
+        } else {
+          err.textContent = "Wrong password.";
+          pw.value = "";
+          pw.focus();
+        }
+      }
+      document.getElementById("go").addEventListener("click", tryUnlock);
+      pw.addEventListener("keydown", function (e) { if (e.key === "Enter") tryUnlock(); });
+    })();
+
+    // Loads the actual CMS only after the password is correct
+    function loadCMS() {
+      // Always load config fresh (avoid stale browser cache hiding new collections)
+      var cfg = document.createElement("link");
+      cfg.rel = "cms-config-url";
+      cfg.type = "text/yaml";
+      cfg.href = "config.yml?cb=" + Date.now();
+      document.head.appendChild(cfg);
+
+      var id = document.createElement("script");
+      id.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
+      document.body.appendChild(id);
+      var cms = document.createElement("script");
+      cms.src = "https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js";
+      document.body.appendChild(cms);
+    }
+  </script>
+</body>
+</html>
